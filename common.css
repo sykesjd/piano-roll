@@ -1,0 +1,10 @@
+body{background:#000;color:#999;font-family:Palatino;}
+.note{position:absolute;opacity:0.5;}
+.but{display:none;position:fixed;bottom:10px;background:grey;color:black;outline:none;border:none;font-size:14pt;border-radius:3px;}
+.but:hover{box-shadow:0px 1px 1px #333;}
+.but:active{box-shadow:inset 0px 1px 1px #333;}
+#play{left:10px}
+#pause{left:43px;}
+#back{left:70px;}
+#now{background-color:white;position:fixed;top:0px;bottom:0px;width:1px;}
+#info{display:none;position:fixed;right:10px;bottom:10px;}

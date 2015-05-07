@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Piano Roll - Voice Mode</title>
+<link rel="stylesheet" href="common.css">
+<style type="text/css">
+.part0{background:rgb(255,0,0);}
+.part1{background:rgb(0,0,255);}
+.part2{background:rgb(0,255,0);}
+.part3{background:rgb(255,255,255);}
+.part4{background:rgb(255,255,0);}
+.part5{background:rgb(255,0,255);}
+.part6{background:rgb(0,255,255);}
+.part7{background:rgb(170,170,170);}
+.part8{background:rgb(127,0,0);}
+.part9{background:rgb(0,0,127);}
+.part10{background:rgb(0,127,0);}
+.part11{background:rgb(85,85,85);}
+</style>
+<!--[if lt IE 9]><script src="http://code.jquery.com/jquery-1.11.1.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--[if gte IE 9]><!--><script src="http://code.jquery.com/jquery-2.1.1.min.js"></script><!--<![endif]-->
+<script src="common.js"></script>
+<script type="text/javascript">
+var timer;
+$(function(){
+	var piece = $(location).attr('href').split('?')[1];
+	$.getJSON("./JSON/"+piece+".json").done(function(data){
+		var reldat = initialize(piece, data);
+		maxright = 0;
+		$.each(data['allnotes']['tracks'], function(i,val){
+			part = val['number'];
+			$.each(val['notes'], function(j, value){
+				maxright = bar(value, reldat, part, maxright);
+			});
+		});
+		finalize(data, maxright);
+	}).fail(function(){
+		$('.w').html("Error loading JSON file");
+	});
+});
+</script>
+</head>
+<body><span class="w">Working...</span><button class="but" id="play">&#9654</button><button class="but" id="pause"><strong>ll</strong></button><button class="but" id="back">&#9664<strong>l</strong></button><h1 id="info"></h1><audio></audio></body>
+</html>

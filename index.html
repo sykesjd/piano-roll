@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Music Animations</title>
+<style type="text/css">
+body{background:black;color:grey;margin:10px;}
+table{width:100%;}
+a{color:grey;display:block;}
+</style>
+<!--[if lt IE 9]><script src="http://code.jquery.com/jquery-1.11.1.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--[if gte IE 9]><!--><script src="http://code.jquery.com/jquery-2.1.1.min.js"></script><!--<![endif]-->
+<script type="text/javascript">
+$(function(){
+	$.getJSON('Animations.json').done(function(data){
+		$.each(data['pieces'], function(i, val){
+			$('ul').append('<li><a href="' + val['type'] + 'Roll.html?' + val['urlParam'] + '">' + val['name'] + ' - ' + val['composer'] + ' [' + val['period'] + ']</a></li>');
+		});
+	}).fail(function(){
+		$('ul').replaceWith('<p>ERROR: unable to load JSON; check your browser settings</p>');
+	});
+});
+</script>
+</head>
+<body><h1>Music Animations</h1><p>The links below are to animations of well-known music pieces over the centuries, as well as a few by current composers. They are animated as a piano roll, with the style of the roll depending on the style of the piece. Choose what you want to listen to below.</p><ul></ul></body>
+</html>

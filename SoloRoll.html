@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Piano Roll - Solo Mode</title>
+<link rel="stylesheet" href="common.css">
+<style type="text/css">
+.part0{background:#FF0000;}
+.part1{background:#007FFF;}
+.part2{background:#FFFF00;}
+.part3{background:#7F00FF;}
+.part4{background:#00FF00;}
+.part5{background:#FF007F;}
+.part6{background:#00FFFF;}
+.part7{background:#FF7F00;}
+.part8{background:#0000FF;}
+.part9{background:#7FFF00;}
+.part10{background:#FF00FF;}
+.part11{background:#00FF7F;}
+</style>
+<!--[if lt IE 9]><script src="http://code.jquery.com/jquery-1.11.1.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--[if gte IE 9]><!--><script src="http://code.jquery.com/jquery-2.1.1.min.js"></script><!--<![endif]-->
+<script src="common.js"></script>
+<script type="text/javascript">
+var timer;
+$(function(){
+	var piece = $(location).attr('href').split('?')[1];
+	$.getJSON("./JSON/"+piece+".json").done(function(data){
+		var reldat = initialize(piece, data);
+		maxright = 0;
+		$.each(data['allnotes']['tracks'], function(i,val){
+			$.each(val['notes'], function(j, value){
+				maxright = bar(value, reldat, (value['pitch'] % 12), maxright);
+			});
+		});
+		finalize(data, maxright);
+	}).fail(function(){
+		$('.w').html("Error loading JSON file");
+	});
+});
+</script>
+</head>
+<body><span class="w">Working...</span><button class="but" id="play">&#9654</button><button class="but" id="pause"><strong>ll</strong></button><button class="but" id="back">&#9664<strong>l</strong></button><h1 id="info"></h1><audio></audio></body>
+</html>
