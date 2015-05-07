@@ -48,17 +48,6 @@ class Tee(object):
 def main(input_filename):
 	workname = raw_input("Enter work name: ")
 	composer = raw_input("Enter composer name: ")
-	if ORCHESTRA:
-		print "You indicated this to be an orchestral work."
-		numparts = int(raw_input("Number of parts: "))
-		parttypes = []
-		print "Enter the type number of each part:"
-		print "\t0: Flute\t1: Double Reed (e.g. Oboe)\t2: Single Reed (e.g. Clarinet)"
-		print "\t3: Conical Bore (e.g. French horn)\t4:Cylindrical Bore (e.g. Trumpet)"
-		print "\t5: Bowed (e.g. Violin)\t6: Plucked (e.g. Guitar)\t7: Keyboard"
-		print "\t8: Pitched percussion\t9: Non-pitched percussion"
-		for i in range(numparts):
-			parttypes.append(int(raw_input("Part " + str(i) + ": ")))
 	path, file = os.path.split(input_filename)
 	input_name = file.split('.')[0]
 	midiIn = MidiInFile(MidiToText(), input_filename)
@@ -68,6 +57,9 @@ def main(input_filename):
 		midiIn.read()
 		sys.stdout = original
 	with open(input_name+"_p1.txt",'r') as part1i:
+		line = dr.readline()
+		division = int(line.split(" ")[-1])
+		ntracks = int(line.split(' ')[3].split(',')[0])
 		tracks = []
 		tempi = []
 		i = -1
@@ -80,6 +72,16 @@ def main(input_filename):
 				tempi.append(["tempo",int(sections[1]),int(sections[3])])
 			elif sections[0] == "note_on" or sections[0] == "note_off":
 				tracks[i].append([sections[0],int(sections[5], 16),int(sections[-1])])
+	if ORCHESTRA:
+		print "You indicated this to be an orchestral work."
+		parttypes = []
+		print "Enter the type number of each part:"
+		print "\t0: Flute\t1: Double Reed (e.g. Oboe)\t2: Single Reed (e.g. Clarinet)"
+		print "\t3: Conical Bore (e.g. French horn)\t4:Cylindrical Bore (e.g. Trumpet)"
+		print "\t5: Bowed (e.g. Violin)\t6: Plucked (e.g. Guitar)\t7: Keyboard"
+		print "\t8: Pitched percussion\t9: Non-pitched percussion"
+		for i in range(ntracks):
+			parttypes.append(int(raw_input("Part " + str(i) + ": ")))
 	tracks.insert(0, tempi)
 	events = []
 	newlength = 0
@@ -104,10 +106,6 @@ def main(input_filename):
 	with open(input_name+"_p2.txt",'w') as part2o:
 		for event in events:
 			part2o.write(" ".join(event) + '\n')
-	with open(input_name+"_p1.txt",'r') as dr:
-		line = dr.readline()
-		division = int(line.split(" ")[-1])
-		ntracks = int(line.split(' ')[3].split(',')[0])
 	with open(input_name+"_p2.txt",'r') as part2i:
 		with open(input_name+"_p3.txt",'w') as part3o:
 			part3o.write(input_name+'\n\n')
