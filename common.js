@@ -79,7 +79,7 @@ function keyboard(value, reldat, part, maxright) {
 
 function perc(value, reldat, part, maxright) {
 	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':(reldat[2]/$(window).height()*100)+'%','left':value['start']+$(window).width()/4,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':reldat[2]/2,'left':value['start']+$(window).width()/4,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
