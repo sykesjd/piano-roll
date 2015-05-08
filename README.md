@@ -50,5 +50,6 @@ The output will be a JSON file where each track has an assigned number, type, an
 This work is still in progress; future additions will include:
 
 * More pieces, of course
+* Lyrics on vocal notes
 * Motif view: Notes that are part of a motif or subject will be given visual precedence in some manner
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
