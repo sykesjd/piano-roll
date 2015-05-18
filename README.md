@@ -49,7 +49,12 @@ The output will be a JSON file where each track has an assigned number, type, an
 
 This work is still in progress; future additions will include:
 
-* More pieces, of course
+* Moving the calculations involved in getting notes on the screen to the server from the client to remove the possibility of freezing browsers: this goal is currently hindered by the calculations requiring the height of the window in order to determine note height and vertical location, which cannot be accessed in server-side languages
+<!---
+%nH = 100/(2.1r)
+%y = (t-p)*100/(4.2r)
+--->
 * Lyrics on vocal notes
 * Motif view: Notes that are part of a motif or subject will be given visual precedence in some manner
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
+* More pieces, of course
