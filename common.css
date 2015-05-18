@@ -6,5 +6,5 @@ body{background:#000;color:#999;font-family:Palatino;}
 #play{left:10px}
 #pause{left:43px;}
 #back{left:70px;}
-#now{background-color:white;position:fixed;top:0px;bottom:0px;left:50px;width:1px;}
+#now{background-color:white;position:fixed;top:0px;bottom:0px;left:200px;width:1px;}
 #info{display:none;position:fixed;right:10px;bottom:10px;}
