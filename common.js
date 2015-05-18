@@ -1,3 +1,8 @@
+/*
+%nH = 100/(2.1r)
+%y = (t-p)*100/(4.2r)
+*/
+
 function initialize(piece, data) {
 	$('audio').attr('src',"./MP3/"+piece+".mp3");
 	var tp, bp, pitch, range, noteHeight;
