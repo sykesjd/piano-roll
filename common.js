@@ -16,8 +16,9 @@ function initialize(piece, data) {
 }
 
 function bar(value, reldat, part, maxright) {
+	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+$(window).width()/4,'height':1/(2.1*reldat[1])*100+'%','top':(reldat[0]-value['pitch'])/(4.2*reldat[1])*100+'%'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+$(window).width()/4,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
