@@ -21,15 +21,15 @@ function initialize(piece, data) {
 }
 
 function bar(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*95/reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(190/reldat[1])+'vh','top':y+'vh'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(180/reldat[1])+'vh','top':y+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function diamond(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'] - 1)*95/reldat[1];
-	$('<div></div>').addClass('note').addClass('part2').css({"left":value['start']+190,"top":y+'vh'}).append($('<div></div>').css({'width':'0px','height':'0px','border-bottom':190/reldat[1]+'vh solid #666','border-left':'10px solid transparent','border-right':'10px solid transparent'})).append($('<div></div>').css({'width':'0px','height':'0px','border-top':190/reldat[1]+'vh solid #666','border-left':'10px solid transparent','border-right':'10px solid transparent'})).appendTo('body');
+	y = (reldat[0] - value['pitch'] - 1)*90/reldat[1] + 5;
+	$('<div></div>').addClass('note').addClass('part2').css({"left":value['start']+190,"top":y+'vh'}).append($('<div></div>').css({'width':'0px','height':'0px','border-bottom':180/reldat[1]+'vh solid #666','border-left':'10px solid transparent','border-right':'10px solid transparent'})).append($('<div></div>').css({'width':'0px','height':'0px','border-top':180/reldat[1]+'vh solid #666','border-left':'10px solid transparent','border-right':'10px solid transparent'})).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
