@@ -1,11 +1,6 @@
-/*
-%nH = 200/r
-%y = (t-p)*100/r
-*/
-
 function initialize(piece, data) {
 	$('audio').attr('src',"./MP3/"+piece+".mp3");
-	var tp, bp, pitch, range, noteHeight;
+	var tp, bp, pitch;
 	tp = data['allnotes']['tracks'][0]['notes'][0]['pitch'];
 	bp = tp;
 	$.each(data['allnotes']['tracks'], function(i,val){
@@ -15,9 +10,7 @@ function initialize(piece, data) {
 			bp = (pitch < bp ? pitch : bp);
 		});
 	});
-	range = tp - bp;
-	noteHeight = Math.floor($(window).height() / range * 2) - range/6;
-	return [tp, range, noteHeight];
+	return [tp, (tp - bp)];
 }
 
 function bar(value, reldat, part, maxright) {
@@ -34,57 +27,57 @@ function diamond(value, reldat, part, maxright) {
 }
 
 function flute(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%','border-radius':width/2+'px / '+reldat[2]/2+'px'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(180/reldat[1])+'vh','top':y+'vh','border-radius':width/2+'px / '+(90/reldat[1])+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function dreed(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%','border-radius':width/4+'px / '+reldat[2]/2+'px'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(180/reldat[1])+'vh','top':y+'vh','border-radius':width/4+'px / '+(90/reldat[1])+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function sreed(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%','border-radius':width/3+'px / '+reldat[2]/2+'px'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(180/reldat[1])+'vh','top':y+'vh','border-radius':width/3+'px / '+(90/reldat[1])+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function conic(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%','border-radius':reldat[2]/2+'px'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':width,'left':value['start']+200,'height':(180/reldat[1])+'vh','top':y+'vh','border-radius':(90/reldat[1])+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function bowed(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('sp' + part).css({"left":value['start']+200,"top":(y/$(window).height()*100)+'%'}).append($('<div></div>').css({'width':'0px','height':'0px','border-bottom':reldat[2]/2+'px solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).append($('<div></div>').css({'width':'0px','height':'0px','border-top':reldat[2]/2+'px solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).appendTo('body');
+	$('<div></div>').addClass('note').addClass('sp' + part).css({"left":value['start']+200,"top":y+'vh'}).append($('<div></div>').css({'width':'0px','height':'0px','border-bottom':(90/reldat[1])+'vh solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).append($('<div></div>').css({'width':'0px','height':'0px','border-top':(90/reldat[1])+'vh solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function pluck(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('sp' + part).css({"left":value['start']+200,"top":(y/$(window).height()*100)+'%'}).append($('<div></div>').css({'width':'0px','height':'0px','border-bottom':reldat[2]/3+'px solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).append($('<div></div>').css({'width':width,'height':reldat[2]/3,'background':bcolor(part)})).append($('<div></div>').css({'width':'0px','height':'0px','border-top':reldat[2]/3+'px solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).appendTo('body');
+	$('<div></div>').addClass('note').addClass('sp' + part).css({"left":value['start']+200,"top":y+'vh'}).append($('<div></div>').css({'width':'0px','height':'0px','border-bottom':(60/reldat[1])+'vh solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).append($('<div></div>').css({'width':width,'height':(60/reldat[1])+'vh','background':bcolor(part)})).append($('<div></div>').css({'width':'0px','height':'0px','border-top':(60/reldat[1])+'vh solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'})).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function keyboard(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
 	width = value['end'] - value['start'] - 1;
-	$('<div></div>').addClass('note').addClass('sp' + part).css({'width':'0px','left':value['start']+200,'height':'0px','top':(y/$(window).height()*100)+'%','border-bottom':reldat[2]+'px solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('sp' + part).css({'width':'0px','left':value['start']+200,'height':'0px','top':y+'vh','border-bottom':(180/reldat[1])+'vh solid ' + bcolor(part),'border-left':width/2+'px solid transparent','border-right':width/2+'px solid transparent'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
 function perc(value, reldat, part, maxright) {
-	y = (reldat[0] - value['pitch'])*reldat[2]/2 + 2*reldat[1];
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':reldat[2]/2,'left':value['start']+200,'height':(reldat[2]/$(window).height()*100)+'%','top':(y/$(window).height()*100)+'%'}).appendTo('body');
+	y = (reldat[0] - value['pitch'])*90/reldat[1] + 5;
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':(90/reldat[1])+'vh','left':value['start']+200,'height':(180/reldat[1])+'vh','top':y+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
@@ -121,7 +114,7 @@ function bcolor(part) {
 }
 
 function finalize(data, maxright) {
-	$('<div></div>').addClass('note').css({'width':$(window).width()*5/4,'left':maxright,'top':$(window).height()/4,'height':$(window).height()/2}).appendTo('body');
+	$('<div></div>').addClass('note').css({'width':'125vw','left':maxright,'top':'25vh','height':'50vh'}).appendTo('body');
 	$('.w').remove();
 	$('#info').html(data['name'] + ' - '+ data['composer']).show();
 	$('.but').show();
