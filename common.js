@@ -22,7 +22,7 @@ function bar(value, reldat, part, maxright) {
 
 function diamond(value, reldat, part, maxright) {
 	y = (reldat[0] - value['pitch'] - 2)*84/reldat[1] + 3;
-	$('<div></div>').addClass('note').addClass('sp12').css({"left":value['start']+190,"top":y+'vh'}).append($('<div></div>').addClass('spu').css({'border-bottom-width':168/reldat[1]+'vh'})).append($('<div></div>').addClass('spd').css({'border-top-width':168/reldat[1]+'vh'})).appendTo('body');
+	$('<div></div>').addClass('note').addClass('sp12').css({"left":value['start']+195,"top":y+'vh'}).append($('<div></div>').addClass('spu').css({'border-bottom-width':168/reldat[1]+'vh'})).append($('<div></div>').addClass('spd').css({'border-top-width':168/reldat[1]+'vh'})).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
@@ -77,7 +77,7 @@ function keyboard(value, reldat, part, maxright) {
 
 function perc(value, reldat, part, maxright) {
 	y = (reldat[0] - value['pitch'] - 1)*84/reldat[1] + 3;
-	$('<div></div>').addClass('note').addClass('part' + part).css({'width':'10px','left':value['start']+200,'height':(168/reldat[1])+'vh','top':y+'vh'}).appendTo('body');
+	$('<div></div>').addClass('note').addClass('part' + part).css({'width':'5px','left':value['start']+200,'height':(168/reldat[1])+'vh','top':y+'vh'}).appendTo('body');
 	return (value['end'] > maxright ? value['end'] : maxright);
 }
 
