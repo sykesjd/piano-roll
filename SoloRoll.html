@@ -18,7 +18,7 @@ $(function(){
 				maxright = bar(value, reldat, (value['pitch'] % 12), maxright);
 			});
 		});
-		finalize(data, maxright);
+		finalize(maxright);
 	}).fail(function(){
 		$('.w').html("Error loading JSON file");
 	});

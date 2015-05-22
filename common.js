@@ -1,5 +1,6 @@
 function initialize(piece, data) {
 	$('audio').attr('src',"./MP3/"+piece+".mp3");
+	$('#info').html(data['name'] + ' - '+ data['composer']);
 	var tp, bp, pitch;
 	tp = data['allnotes']['tracks'][0]['notes'][0]['pitch'];
 	bp = tp;
@@ -96,11 +97,10 @@ function orchnote(type, value, reldat, part, maxright) {
 	}
 }
 
-function finalize(data, maxright) {
-	$('#scrollallow').css({'left':maxright}).appendTo('body');
+function finalize(maxright) {
+	$('#scrollallow').css({'left':maxright});
 	$('.w').remove();
-	$('#info').html(data['name'] + ' - '+ data['composer']).show();
-	$('.but,#now').show();
+	$('.but,#now,#info').show();
 	$('body').scrollLeft(0);
 	$('#play').click(function(){
 		if ($('audio')[0].paused) {
@@ -109,17 +109,19 @@ function finalize(data, maxright) {
 				$('body').scrollLeft($('audio')[0].currentTime*60);
 			}, 1000/60.0);
 			$('audio').trigger("play");
+			$('#info').animate({right:'-2000px'},500);
 		}
 	});
 	$('#pause').click(function(){
 		$('audio').trigger("pause");
 	});
 	$('#back').click(function(){
-		$('audio')[0].currentTime = 0;
 		$('audio').trigger("pause");
+		$('audio')[0].currentTime = 0;
 		$('body').scrollLeft(0);
 	});
 	$('audio').on('pause',function(){
 		window.clearInterval(timer);
+		$('#info').animate({right:'10px'},500);
 	});
 }
