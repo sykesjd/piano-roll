@@ -19,7 +19,7 @@ $(function(){
 				maxright = bar(value, reldat, part, maxright);
 			});
 		});
-		finalize(data, maxright);
+		finalize(maxright);
 	}).fail(function(){
 		$('.w').html("Error loading JSON file");
 	});
