@@ -97,11 +97,10 @@ function orchnote(type, value, reldat, part, maxright) {
 }
 
 function finalize(data, maxright) {
-	$('<div></div>').addClass('note').css({'width':'125vw','left':maxright,'top':'25vh','height':'50vh'}).appendTo('body');
+	$('#scrollallow').css({'left':maxright}).appendTo('body');
 	$('.w').remove();
 	$('#info').html(data['name'] + ' - '+ data['composer']).show();
-	$('.but').show();
-	$('<div id="now"></div>').appendTo('body');
+	$('.but,#now').show();
 	$('body').scrollLeft(0);
 	$('#play').click(function(){
 		if ($('audio')[0].paused) {
