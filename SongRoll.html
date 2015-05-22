@@ -4,13 +4,6 @@
 <meta charset="utf-8">
 <title>Piano Roll - Song Mode</title>
 <link rel="stylesheet" href="common.css">
-<style type="text/css">
-.part0{background:#FFF;}
-.part1{background:#AAA;}
-.sp12 div{width:0px;height:0px;border-left:5px solid transparent;border-right:5px solid transparent;}
-.sp12 .spu{border-bottom-style:solid;border-bottom-color:#666;}
-.sp12 .spd{border-top-style:solid;border-top-color:#666;}
-</style>
 <!--[if lt IE 9]><script src="http://code.jquery.com/jquery-1.11.1.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--[if gte IE 9]><!--><script src="http://code.jquery.com/jquery-2.1.1.min.js"></script><!--<![endif]-->
 <script src="common.js"></script>
 <script type="text/javascript">
@@ -33,5 +26,5 @@ $(function(){
 });
 </script>
 </head>
-<body><span class="w">Working...</span><button class="but" id="play">&#9654</button><button class="but" id="pause"><strong>ll</strong></button><button class="but" id="back">&#9664<strong>l</strong></button><h1 id="info"></h1><audio></audio></body>
+<body><span class="w">Working...</span><div id="now"></div><div id="scrollallow"></div><button class="but" id="play">&#9654</button><button class="but" id="pause"><strong>ll</strong></button><button class="but" id="back">&#9664<strong>l</strong></button><h1 id="info"></h1><audio></audio></body>
 </html>
