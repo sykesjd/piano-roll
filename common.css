@@ -6,7 +6,7 @@ body{background:#000;color:#999;font-family:Palatino;}
 #play{left:10px}
 #pause{left:43px;}
 #back{left:70px;}
-#now{background-color:white;position:fixed;top:0px;bottom:0px;left:200px;width:1px;z-index:5;}
+#now{display:none;background-color:white;position:fixed;top:0px;bottom:0px;left:200px;width:1px;z-index:5;}
 #scrollallow{position:absolute;width:125vw;top:25vh;height:50vh;}
 #info{display:none;position:fixed;right:10px;bottom:10px;z-index:5;}
 .part0{background:#FF0000;}
