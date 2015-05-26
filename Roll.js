@@ -37,8 +37,8 @@ $(function(){
 						case 5: $('<div></div>').addClass('note').addClass('sp' + part).css({"left":value['start']+200,"top":y+'vh'}).append($('<div></div>').addClass('spu').css({'border-bottom-width':(84/range)+'vh','border-left-width':width/2+'px','border-right-width':width/2+'px'})).append($('<div></div>').addClass('spd').css({'border-top-width':(84/range)+'vh','border-left-width':width/2+'px','border-right-width':width/2+'px'})).appendTo('body');break;
 						case 6: $('<div></div>').addClass('note').addClass('sp' + part).css({"left":value['start']+200,"top":y+'vh'}).append($('<div></div>').addClass('spu').css({'border-bottom-width':(56/range)+'vh','border-left-width':width/2+'px','border-right-width':width/2+'px'})).append($('<div></div>').addClass('part' + part).css({'width':width,'height':(56/range)+'vh'})).append($('<div></div>').addClass('spd').css({'border-top-width':(56/range)+'vh','border-left-width':width/2+'px','border-right-width':width/2+'px'})).appendTo('body');break;
 						case 7: $('<div></div>').addClass('note').addClass('sp' + part).addClass('spu').css({'left':value['start']+200,'top':y+'vh','border-bottom-width':(168/range)+'vh','border-left-width':width/2+'px','border-right-width':width/2+'px'}).appendTo('body');break;
-						case 8: $('<div></div>').addClass('note').addClass('part' + part).css({'width':'5px','left':value['start']+200,'height':(168/range)+'vh','top':y+'vh'}).appendTo('body');break;
-						case 9: $('<div></div>').addClass('note').addClass('part12').css({'width':'5px','left':value['start']+200,'height':(168/range)+'vh','top':y+'vh'}).appendTo('body');break;
+						case 8: $('<div></div>').addClass('note').addClass('perc').addClass('part' + part).css({'left':value['start']+200,'height':(168/range)+'vh','top':y+'vh'}).appendTo('body');break;
+						case 9: $('<div></div>').addClass('note').addClass('perc').addClass('part12').css({'left':value['start']+200,'height':(168/range)+'vh','top':y+'vh'}).appendTo('body');break;
 					}
 				}
 				maxright = (value['end'] > maxright ? value['end'] : maxright);
