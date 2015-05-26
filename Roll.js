@@ -20,7 +20,7 @@ $(function(){
 		maxright = 0;
 		$.each(data['allnotes']['tracks'], function(i,val){
 			part = val['number'];
-			type = val['type'] || 4;
+			type = (val['type'] || val['type'] == 0) ? val['type'] : 4;
 			$.each(val['notes'], function(j, value){
 				part = (style == "Solo" || style == "Orch") ? (value['pitch'] % 12) : part;
 				y = (tp - value['pitch'] - 1)*84/range + 3;
