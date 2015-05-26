@@ -2,14 +2,14 @@
 
 This repository stores experiments in creating an in-browser piano roll from a MIDI file. It contains the following things of import:
 
-## Roll Pages
+## Roll Page
 
-The roll pages take a JSON representation of a MIDI file (see MIDItoJSON) and draws a piano roll onto the screen which animates with its accompanying MP3. The style of the roll depends on the mode taken:
+The roll page takes a JSON representation of a MIDI file (see MIDItoJSON) and draws a piano roll onto the screen which animates with its accompanying MP3. The style of the roll depends on the mode taken:
 
-* VoiceRoll: each track in the piece is treated as a voice in a fugue and is assigned a color to represent the voice
-* SongRoll: the first and second tracks are treated as melody and counter-melody and are given piano roll bars, while all other tracks are treated as accompaniment and are given diamond notes instead
-* SoloRoll: the color of the note depends on its pitch rather than its voice; good for works where voices are not clear-cut and a melody-accompaniment structure is not definable
-* OrchRoll: each track is treated like an instrument in an orchestra and given a different _shape_ (see MIDItoJSON); color depends on pitch
+* Voice: each track in the piece is treated as a voice in a fugue and is assigned a color to represent the voice
+* Song: the first and second tracks are treated as melody and counter-melody and are given piano roll bars, while all other tracks are treated as accompaniment and are given diamond notes instead
+* Solo: the color of the note depends on its pitch rather than its voice; good for works where voices are not clear-cut and a melody-accompaniment structure is not definable
+* Orch: each track is treated like an instrument in an orchestra and given a different _shape_ (see MIDItoJSON); color depends on pitch
 
 ## MIDItoJSON.py
 MIDItoJSON uses a modified version of EchoNest Remix's MIDI API to convert a MIDI file into a JSON file readable by the roll pages.

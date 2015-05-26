@@ -13,7 +13,7 @@ a{color:grey;display:block;}
 $(function(){
 	$.getJSON('Animations.json').done(function(data){
 		$.each(data['pieces'], function(i, val){
-			$('ul').append('<li><a href="' + val['type'] + 'Roll.html?' + val['urlParam'] + '">' + val['name'] + ' - ' + val['composer'] + ' [' + val['period'] + ']</a></li>');
+			$('ul').append('<li><a href="Roll.html?' + val['type'] + '-' + val['urlParam'] + '">' + val['name'] + ' - ' + val['composer'] + ' [' + val['period'] + ']</a></li>');
 		});
 	}).fail(function(){
 		$('ul').replaceWith('<p>ERROR: unable to load JSON; check your browser settings</p>');
