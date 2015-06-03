@@ -14,8 +14,6 @@ sys.path.append('./util')
 from MidiInFile import MidiInFile
 from MidiToText import MidiToText
 
-ORCHESTRA = False
-
 usage = """
 Usage: 
 	python MIDItoJSON.py <input_mid>
@@ -48,6 +46,10 @@ class Tee(object):
 def main(input_filename):
 	workname = raw_input("Enter work name: ")
 	composer = raw_input("Enter composer name: ")
+	print "What type of roll do you want?"
+	print "0: Voice\t1: Song"
+	print "2: Solo\t2: Orchestra"
+	rolltype = raw_input("Enter type number: ")
 	path, file = os.path.split(input_filename)
 	input_name = file.split('.')[0]
 	midiIn = MidiInFile(MidiToText(), input_filename)
@@ -72,7 +74,7 @@ def main(input_filename):
 				tempi.append(["tempo",int(sections[1]),int(sections[3])])
 			elif sections[0] == "note_on" or sections[0] == "note_off":
 				tracks[i].append([sections[0],int(sections[5], 16),int(sections[-1])])
-	if ORCHESTRA:
+	if rolltype == 3:
 		print "You indicated this to be an orchestral work."
 		parttypes = []
 		print "Enter the type number of each part:"
@@ -143,14 +145,17 @@ def main(input_filename):
 	notesobj = {}
 	notesobj['name'] = workname
 	notesobj['composer'] = composer
+	notesobj['rolltype'] = rolltype
 	notesobj['allnotes'] = {}
 	notesobj['allnotes']['tracks'] = []
 	trobj = notesobj['allnotes']['tracks']
 	for i in range(len(notes)):
 		trobj.append({})
 		trobj[i]['number'] = i
-		if ORCHESTRA:
+		if rolltype == 3:
 			trobj[i]['type'] = parttypes[i]
+		else:
+			trobj[i]['type'] = 4
 		trobj[i]['notes'] = []
 		for j in range(len(notes[i])):
 			trobj[i]['notes'].append(notes[i][j])
@@ -167,8 +172,6 @@ if __name__ == '__main__':
 		if input_filename.split('.')[1] != 'mid':
 			print "Not a standard MIDI file"
 			sys.exit(-1)
-		if len(sys.argv) > 2 and sys.argv[2] == '--orch':
-			ORCHESTRA = True
 	except:
 		print usage
 		sys.exit(-1)
