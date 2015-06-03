@@ -2,35 +2,24 @@
 
 This repository stores experiments in creating an in-browser piano roll from a MIDI file. It contains the following things of import:
 
-## Roll Page
-
-The roll page takes a JSON representation of a MIDI file (see MIDItoJSON) and draws a piano roll onto the screen which animates with its accompanying MP3. The style of the roll depends on the mode taken:
-
-* Voice: each track in the piece is treated as a voice in a fugue and is assigned a color to represent the voice
-* Song: the first and second tracks are treated as melody and counter-melody and are given piano roll bars, while all other tracks are treated as accompaniment and are given diamond notes instead
-* Solo: the color of the note depends on its pitch rather than its voice; good for works where voices are not clear-cut and a melody-accompaniment structure is not definable
-* Orch: each track is treated like an instrument in an orchestra and given a different _shape_ (see MIDItoJSON); color depends on pitch
-
 ## MIDItoJSON.py
-MIDItoJSON uses a modified version of EchoNest Remix's MIDI API to convert a MIDI file into a JSON file readable by the roll pages.
-
-The module can be executed in one of two ways:
-
-### 1. Normal mode
+MIDItoJSON uses a modified version of EchoNest Remix's MIDI API to convert a MIDI file into a JSON file readable by the roll pages. It is executed by providing the MIDI file as a command line argument like so:
 
 ```
 python MIDItoJSON.py <name_of_midi_file>
+
+# for example
+python MIDItoJSON.py BWV552.mid
 ```
 
-In normal mode, you will be prompted for the work name and composer name upon program execution. The module will then output a JSON file where each track is assigned a number and an list of note objects.
+You will be prompted to provide the name of the work, the composer of the work, and the type of roll with which the piece will be represented, where the roll type is denoted as an integer like so:
 
-### 2. Orchestra mode
+* 0: Voice roll - each track in the piece is treated as a voice in a fugue and is assigned a color to represent the voice
+* 1: Song roll - the first and second tracks are treated as melody and counter-melody and are given piano roll bars, while all other tracks are treated as accompaniment and are given diamond notes instead
+* 2: Solo roll - the color of the note depends on its pitch rather than its voice; good for works where voices are not clear-cut and a melody-accompaniment structure is not definable
+* 3: Orchestra roll - each track is treated like an instrument in an orchestra and given a different _shape_ (see MIDItoJSON); color depends on pitch
 
-```
-python MIDITOJSON.py <name_of_midi_file> --orch
-```
-
-In orchestra mode, in addition to being prompted for work and composer name, you will be prompted for the instrument type of each track, where the instrument type is denoted as an integer like so:
+If you indicate that you want an orchestra roll, in addition to being prompted for work and composer name, you will be prompted for the instrument type of each track, where the instrument type is denoted as an integer like so:
 
 * 0: for a flute instrument, such as flute or piccolo
 * 1: for a double reed instrument, such as oboe or bassoon
@@ -43,7 +32,11 @@ In orchestra mode, in addition to being prompted for work and composer name, you
 * 8: for a pitched percussion instrument, such as timpani or marimba
 * 9: for an unpitched percussion instrument, such as snare or cymbal
 
-The output will be a JSON file where each track has an assigned number, type, and list of note objects.
+The output will be a JSON file where each track has an assigned number, instrument type, and list of note objects.
+
+## Roll Page
+
+The roll page takes the JSON representation of a MIDI file and draws a piano roll onto the screen which animates with its accompanying MP3. The style of the roll depends on the mode taken (see above).
 
 ---
 

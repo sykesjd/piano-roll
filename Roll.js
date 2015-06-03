@@ -1,11 +1,10 @@
 var timer;
 $(function(){
-	var params = $(location).attr('href').split('?')[1].split('-');
-	var piece = params[1];
-	var style = params[0];
+	var piece = $(location).attr('href').split('?')[1];
 	$.getJSON("./JSON/"+piece+".json").done(function(data){
 		$('audio').attr('src',"./MP3/"+piece+".mp3");
 		$('#info').html(data['name'] + ' - '+ data['composer']);
+		var style = data['rolltype']
 		var tp, bp, pitch, range, maxright, part, type;
 		tp = data['allnotes']['tracks'][0]['notes'][0]['pitch'];
 		bp = tp;
@@ -22,10 +21,10 @@ $(function(){
 			part = val['number'];
 			type = (val['type'] || val['type'] == 0) ? val['type'] : 4;
 			$.each(val['notes'], function(j, value){
-				part = (style == "Solo" || style == "Orch") ? (value['pitch'] % 12) : part;
+				part = (style == 2 || style == 3) ? (value['pitch'] % 12) : part;
 				y = (tp - value['pitch'] - 1)*84/range + 3;
 				width = value['end'] - value['start'] - 1;
-				if (part >= 2 && style == "Song") {
+				if (part >= 2 && style == 1) {
 					$('<div></div>').addClass('note').addClass('sp12').css({"left":value['start']+195,"top":y+'vh'}).append($('<div></div>').addClass('spu').css({'border-bottom-width':84/range+'vh'})).append($('<div></div>').addClass('spd').css({'border-top-width':84/range+'vh'})).appendTo('body');
 				} else {
 					switch (type) {
