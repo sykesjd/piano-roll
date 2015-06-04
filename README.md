@@ -48,4 +48,4 @@ This work is still in progress; future changes will include:
 * More pieces, of course
 * UI improvements for the buttons
 * Moving the calculations involved in getting notes on the screen to the server from the client to remove the possibility of freezing browsers
-⋅⋅ * I've learned the hard way that Github doesn't allow live hosting of PHP files, so this goal will have to come later
+  * I've learned the hard way that Github doesn't allow live hosting of PHP files, so this goal will have to come later
