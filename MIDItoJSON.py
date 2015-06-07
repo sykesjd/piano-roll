@@ -4,7 +4,7 @@ Converts a MIDI file to a JSON readable by the Piano Roll program.
 
 Uses a modified version of Echonest Remix's MIDIToText API; see relevant files in util folder.
 
-Jesse David Sykes, 2 May 2015
+Jesse David Sykes, 6 June 2015
 """
 
 import os
@@ -44,20 +44,24 @@ class Tee(object):
 			f.write(obj)
 
 def main(input_filename):
+	# get info from user
 	workname = raw_input("Enter work name: ")
 	composer = raw_input("Enter composer name: ")
 	print "What type of roll do you want?"
 	print "0: Voice\t1: Song"
 	print "2: Solo\t2: Orchestra"
 	rolltype = raw_input("Enter type number: ")
+	# remove extension from filename
 	path, file = os.path.split(input_filename)
 	input_name = file.split('.')[0]
+	# read in midi as text and write to a temporary file
 	midiIn = MidiInFile(MidiToText(), input_filename)
 	with open(input_name+'_p1.txt','w') as part1o:
 		original = sys.stdout
 		sys.stdout = Tee(part1o)
 		midiIn.read()
 		sys.stdout = original
+	# reformat events into a list of lists, where each sublist is a track; zeroth track holds tempi
 	with open(input_name+"_p1.txt",'r') as part1i:
 		line = dr.readline()
 		division = int(line.split(" ")[-1])
@@ -74,6 +78,8 @@ def main(input_filename):
 				tempi.append(["tempo",int(sections[1]),int(sections[3])])
 			elif sections[0] == "note_on" or sections[0] == "note_off":
 				tracks[i].append([sections[0],int(sections[5], 16),int(sections[-1])])
+	tracks.insert(0, tempi)
+	# get track info from user for orchestral pieces
 	if rolltype == 3:
 		print "You indicated this to be an orchestral work."
 		parttypes = []
@@ -84,7 +90,7 @@ def main(input_filename):
 		print "\t8: Pitched percussion\t9: Non-pitched percussion"
 		for i in range(ntracks):
 			parttypes.append(int(raw_input("Part " + str(i) + ": ")))
-	tracks.insert(0, tempi)
+	# merge tracks together into a unified event log
 	events = []
 	newlength = 0
 	for i in range(len(tracks)):
@@ -105,9 +111,11 @@ def main(input_filename):
 		if event[0] == "note_on" or event[0] == "note_off":
 			event.insert(0, str(fev-1))
 		events.append(event)
+	# reformat event log into text and output to another temporary file
 	with open(input_name+"_p2.txt",'w') as part2o:
 		for event in events:
 			part2o.write(" ".join(event) + '\n')
+	# change times on events from MIDI clocks to microseconds
 	with open(input_name+"_p2.txt",'r') as part2i:
 		with open(input_name+"_p3.txt",'w') as part3o:
 			part3o.write(input_name+'\n\n')
@@ -123,6 +131,7 @@ def main(input_filename):
 				elif sections[0].isdigit():
 					sections[3] = str((int(sections[3])-temppoint)*tempo/division+temptemp)+'\n'
 					part3o.write(' '.join(sections))
+	# convert pairs of events into note objects, times from microseconds to pixels
 	notes = []
 	for i in range(ntracks):
 		notes.append([])
@@ -142,6 +151,7 @@ def main(input_filename):
 				tempnon.pop(i)
 				newnote['end'] = int(sections[3]) / 1000000.0 * 60
 				notes[int(sections[0])].append(newnote)
+	# package all info into one dictionary, write to JSON file
 	notesobj = {}
 	notesobj['name'] = workname
 	notesobj['composer'] = composer
@@ -162,6 +172,7 @@ def main(input_filename):
 	with open(input_name+'.json','w') as output:
 		json.dump(notesobj, output)
 	print "JSON written to", input_name+'.json', "successfully!"
+	# remove temporary files
 	os.remove(input_name+"_p1.txt")
 	os.remove(input_name+"_p2.txt")
 	os.remove(input_name+"_p3.txt")
