@@ -3,8 +3,6 @@ $(function(){
 	// get piece name as it appears in the file system
 	var piece = $(location).attr('href').split('?')[1];
 	$.getJSON("./JSON/"+piece+".json").done(function(data){
-		$('audio').attr('src',"./MP3/"+piece+".mp3");
-		$('#info').html(data['name'] + ' - '+ data['composer']);
 		// find range of piece to determine proper note height
 		var tp = data['allnotes']['tracks'][0]['notes'][0]['pitch'];
 		var bp = tp;
@@ -70,9 +68,10 @@ $(function(){
 		// move dummy note, show interface elements
 		$('#scrollallow').css({'left':maxright});
 		$('.w').remove();
-		$('.but,#now,#info').show();
+		$('audio').attr('src',"./MP3/"+piece+".mp3");
+		$('#info').html(data['name'] + ' - '+ data['composer']);
+		$('.but,#now').show();
 		$('body').scrollLeft(0);
-		
 		$('#play').click(function(){
 			if ($('audio')[0].paused) {
 				// roll animates at 60pps while audio is playing
