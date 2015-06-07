@@ -46,6 +46,5 @@ This work is still in progress; future changes will include:
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
 * Lyrics on vocal notes
 * More pieces, of course
-* UI improvements for the buttons
 * Moving the calculations involved in getting notes on the screen from the client to the server to remove the possibility of freezing browsers
   * I've learned the hard way that Github doesn't allow live hosting of PHP files, so this goal will have to come later
