@@ -3,7 +3,7 @@
 This repository stores experiments in creating an in-browser piano roll from a MIDI file. It contains the following things of import:
 
 ## MIDItoJSON.py
-MIDItoJSON uses a modified version of EchoNest Remix's MIDI API to convert a MIDI file into a JSON file readable by the roll pages. It is executed by providing the MIDI file as a command line argument like so:
+MIDItoJSON uses a modified version of EchoNest Remix's MIDI API to convert a MIDI file into a JSON file readable by the roll page. It is executed by providing the MIDI file as a command line argument like so:
 
 ```
 python MIDItoJSON.py <name_of_midi_file>
@@ -47,5 +47,5 @@ This work is still in progress; future changes will include:
 * Lyrics on vocal notes
 * More pieces, of course
 * UI improvements for the buttons
-* Moving the calculations involved in getting notes on the screen to the server from the client to remove the possibility of freezing browsers
+* Moving the calculations involved in getting notes on the screen from the client to the server to remove the possibility of freezing browsers
   * I've learned the hard way that Github doesn't allow live hosting of PHP files, so this goal will have to come later
