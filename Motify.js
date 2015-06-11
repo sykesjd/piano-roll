@@ -63,6 +63,7 @@ $(function(){
 		});
 		$('.w').remove();
 		$('#info').html(data['name'] + ' - '+ data['composer']);
+		$('.but').show();
 		$('body').scrollLeft(0);
 		// core of motify: allow user to select motifs and print resulting JSON to console
 		var motifs = {"motifs":[]};
