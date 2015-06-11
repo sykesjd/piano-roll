@@ -72,7 +72,6 @@ $(function(){
 		}
 		var reset = motifs;
 		$('.note').click(function(){
-			alert('clicked');
 			$(this).toggleClass('motif'+$("#motifbox").val());
 		});
 		$('#ptc').click(function(){
