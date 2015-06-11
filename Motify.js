@@ -68,16 +68,17 @@ $(function(){
 		// core of motify: allow user to select motifs and print resulting JSON to console
 		var motifs = {"motifs":[]};
 		for (var i = 1; i < 13; i++) {
-			motifs['motifs'].append({"number":i,"notes":[]});
+			motifs['motifs'].push({"number":i,"notes":[]});
 		}
 		var reset = motifs;
 		$('.note').click(function(){
+			alert('clicked');
 			$(this).toggleClass('motif'+$("#motifbox").val());
 		});
 		$('#ptc').click(function(){
 			for (var i = 1; i < 13; i++) {
 				$('.motif'+i).each(function(){
-					motifs['motifs'][i - 1]['notes'].append({'left':$(this).css('left'),'width':$(this).css('width'),'top':$(this).css('top')});
+					motifs['motifs'][i - 1]['notes'].push({'left':$(this).css('left'),'width':$(this).css('width'),'top':$(this).css('top')});
 				});
 			}
 			console.log(JSON.stringify(motifs));
