@@ -78,7 +78,7 @@ $(function(){
 			$(this).toggleClass('motif'+$("#motifbox").val());
 			$curr = $(this);
 		});
-		$(document).keypress(function(e) {
+		$(document).keydown(function(e) {
 			if (e.which == 39) {
 				e.preventDefault();
 				$curr = $curr.next();
