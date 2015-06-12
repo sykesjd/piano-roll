@@ -80,9 +80,11 @@ $(function(){
 		});
 		$(document).keypress(function(e) {
 			if (e.which == 39) {
+				e.preventDefault();
 				$curr = $curr.next();
 				$curr.click();
 			} else if (e.which == 37) {
+				e.preventDefault();
 				$curr.click();
 				$curr = $curr.prev();
 			}
