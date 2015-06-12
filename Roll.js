@@ -61,9 +61,11 @@ $(function(){
 						case 9: $note = $('<div></div>').addClass('note').addClass('perc').addClass('part12').css({'left':x,'height':noteHeight+'vh','top':y+'vh'});break;
 					}
 				}
-				$.each(value['motifs'],function(k,v){
-					$note.addClass('motif'+v);
-				});
+				if (value['motifs']) {
+					$.each(value['motifs'],function(k,v){
+						$note.addClass('motif'+v);
+					});
+				}
 				$note.appendTo('body');
 				// increase maxright if further right
 				maxright = (value['end'] > maxright ? value['end'] : maxright);
