@@ -34,15 +34,20 @@ If you indicate that you want an orchestra roll, in addition to being prompted f
 
 The output will be a JSON file where each track has an assigned number, instrument type, and list of note objects.
 
+## Motify
+
+Motify is an optional stage in finalizing the JSON file for the roll page in which the user selects the notes in the piece which are parts of motifs or subjects. A roll is printed on the screen and notes are selected/deselected with mouse clicks and arrow keys, with an indication as to which motif the note belong via the select box.
+
+Upon finishing selecting all the appropriate notes, the user can then print the new JSON to the console, which the user can copy and paste over the old contents of the JSON file. The new JSON will be the same as the old JSON except each note object will also contain a list of motifs of which it is a part.
+
 ## Roll Page
 
-The roll page takes the JSON representation of a MIDI file and draws a piano roll onto the screen which animates with its accompanying MP3. The style of the roll depends on the mode taken (see above).
+The roll page takes the JSON representation of a MIDI file and draws a piano roll onto the screen which animates with its accompanying MP3. The style of the roll depends on the mode taken (see above). If applicable, notes that are part of one or more motifs are highlighted, with each motif receiving a different color.
 
 ---
 
 This work is still in progress; future changes will include:
 
-* Motif view: Notes that are part of a motif or subject will be given visual precedence in some manner
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
 * Lyrics on vocal notes
 * More pieces, of course
