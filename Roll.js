@@ -76,8 +76,14 @@ $(function(){
 		$('.w').remove();
 		$('audio').attr('src',"./MP3/"+piece+".mp3");
 		$('#info').html(data['name'] + ' - '+ data['composer']);
-		$('.but,#now').show();
-		$('body').scrollLeft(0);
+		//$('.but,#now').show();
+		$('#now').show();
+		//$('body').scrollLeft(0);
+		// roll animates at 60pps while audio is playing
+		timer = window.setInterval(function(){
+			$('body').scrollLeft($('audio')[0].currentTime*60);
+		}, 1000/60.0);
+		/*
 		$('#play').click(function(){
 			if ($('audio')[0].paused) {
 				// roll animates at 60pps while audio is playing
@@ -99,10 +105,14 @@ $(function(){
 			$('audio')[0].currentTime = 0;
 			$('body').scrollLeft(0);
 		});
+		*/
 		$('audio').on('pause',function(){
 			// pause animation, unhide info
-			window.clearInterval(timer);
+			// window.clearInterval(timer);
 			$('#info').animate({right:'10px'},500);
+		});
+		$('audio').on('play',function(){
+			$('#info').animate({right:'-2000px'},500);
 		});
 	}).fail(function(){
 		$('.w').html("Error loading data file; check your browser settings");
