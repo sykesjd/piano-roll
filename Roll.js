@@ -76,33 +76,17 @@ $(function(){
 		$('.w').remove();
 		$('audio').attr('src',"./MP3/"+piece+".mp3");
 		$('#info').html(data['name'] + ' - '+ data['composer']);
-		$('.but,#now').show();
-		$('body').scrollLeft(0);
-		$('#play').click(function(){
-			if ($('audio')[0].paused) {
-				// roll animates at 60pps while audio is playing
-				$('body').scrollLeft($('audio')[0].currentTime*60);
-				timer = window.setInterval(function(){
-					$('body').scrollLeft($('audio')[0].currentTime*60);
-				}, 1000/60.0);
-				$('audio').trigger("play");
-				// hide info
-				$('#info').animate({right:'-2000px'},500);
-			}
-		});
-		$('#pause').click(function(){
-			$('audio').trigger("pause");
-		});
-		$('#back').click(function(){
-			$('audio').trigger("pause");
-			// bring roll and audio back to the beginning
-			$('audio')[0].currentTime = 0;
-			$('body').scrollLeft(0);
-		});
+		$('#now').show();
+		// roll animates at 60pps while audio is playing
+		timer = window.setInterval(function(){
+			$('body').scrollLeft($('audio')[0].currentTime*60);
+		}, 1000/60.0);
 		$('audio').on('pause',function(){
 			// pause animation, unhide info
-			window.clearInterval(timer);
 			$('#info').animate({right:'10px'},500);
+		});
+		$('audio').on('play',function(){
+			$('#info').animate({right:'-2000px'},500);
 		});
 	}).fail(function(){
 		$('.w').html("Error loading data file; check your browser settings");
