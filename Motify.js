@@ -1,4 +1,3 @@
-var timer;
 $(function(){
 	// get piece name as it appears in the file system
 	var piece = $(location).attr('href').split('?')[1];
