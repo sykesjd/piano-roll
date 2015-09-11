@@ -1,4 +1,3 @@
-var timer;
 $(function(){
 	// get piece name as it appears in the file system
 	var piece = $(location).attr('href').split('?')[1];
@@ -78,7 +77,7 @@ $(function(){
 		$('#info').html(data['name'] + ' - '+ data['composer']);
 		$('#now').show();
 		// roll animates at 60pps while audio is playing
-		timer = window.setInterval(function(){
+		var timer = window.setInterval(function(){
 			$('body').scrollLeft($('audio')[0].currentTime*60);
 		}, 1000/60.0);
 		$('audio').on('pause',function(){
