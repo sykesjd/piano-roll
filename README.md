@@ -48,6 +48,7 @@ The roll page takes the JSON representation of a MIDI file and draws a piano rol
 
 This work is still in progress; future changes will include:
 
+* Remove the need to ask for instrument types in the conversion process for orchestral works: MIDI files provide instrument numbers which can be matched to the categories above
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
 * Lyrics on vocal notes
 * More pieces, of course
