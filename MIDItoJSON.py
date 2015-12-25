@@ -21,6 +21,8 @@ Usage:
 Example:
 	python MIDItoJSON.py BWV552.midi
 """
+STOMUS = 1000000.0
+STOPX = 60.0
 
 """
 Tee: provides a means of piping standard output into a text file.
@@ -94,10 +96,7 @@ def converttoeventlists(name):
 		line = tempIn.readline()
 		division = int(line.split(" ")[-1])
 		ntracks = int(line.split(' ')[3].split(',')[0])
-		tracks = []
-		tempi = []
-		parttypes = []
-		i = -1
+		tracks, tempi, parttypes, i = [], [], [], -1
 		for line in tempIn:
 			sections = line.split(' ')
 			if sections[0] == "Start":
@@ -123,9 +122,9 @@ def instrtype(gm1num):
 		return 1
 	elif between(gm1num, 64, 67) or gm1num == 71 or gm1num == 109:
 		return 2
-	elif between(gm1num, 0, 7) or between(gm1num, 16, 20) or between(gm1num, 80, 95):
+	elif between(gm1num, 0, 7) or between(gm1num, 16, 20) or between(gm1num, 38, 39) or between(gm1num, 80, 95):
 		return 7
-	elif between(gm1num, 24, 39) or gm1num == 46 or between(gm1num, 104, 107):
+	elif between(gm1num, 24, 37) or gm1num == 46 or between(gm1num, 104, 107):
 		return 6
 	elif between(gm1num, 8, 15) or gm1num == 47 or gm1num == 108 or gm1num == 114 or gm1num == 117:
 		return 8
@@ -146,8 +145,7 @@ def between(gm1num,low,high):
 
 # merges track event logs into one event log
 def mergelogs(tracks):
-	events = []
-	newlength = 0
+	events, newlength = [], 0
 	for i in range(len(tracks)):
 		newlength += len(tracks[i])
 	for j in range(newlength):
@@ -168,10 +166,7 @@ def mergelogs(tracks):
 
 # converts event time from MIDI clocks to microseconds
 def clockstomus(events, division):
-	newevents = []
-	tempo = 0
-	temppoint = 0
-	temptemp = 0
+	newevents, tempo, temppoint, temptemp = [], 0, 0, 0
 	for event in events:
 		if event[0] == 'tempo':
 			temptemp = temptemp + (event[2]-temppoint)*tempo/division
@@ -184,10 +179,9 @@ def clockstomus(events, division):
 
 # converts events to note objects, times from microseconds to pixels
 def eventstonotes(ntracks, events):
-	notes = []
+	notes, tempnon = [], []
 	for i in range(ntracks):
 		notes.append([])
-	tempnon = []
 	for event in events:
 		if event[1] == 'note_on':
 			tempnon.append(event)
@@ -197,9 +191,9 @@ def eventstonotes(ntracks, events):
 			for i in range(len(tempnon)):
 				if tempnon[i][0] == event[0] and tempnon[i][2] == event[2]:
 					break
-			newnote['start'] = tempnon[i][3] / 1000000.0 * 60
+			newnote['start'] = tempnon[i][3] / STOMUS * STOPX
 			tempnon.pop(i)
-			newnote['end'] = event[3] / 1000000.0 * 60
+			newnote['end'] = event[3] / STOMUS * STOPX
 			notes[event[0]].append(newnote)
 	return notes
 
