@@ -4,7 +4,7 @@ Converts a MIDI file to a JSON readable by the Piano Roll program.
 
 Uses a modified version of Echonest Remix's MIDIToText API; see relevant files in util folder.
 
-Jesse David Sykes, 6 June 2015
+Jesse David Sykes, 25 December 2015
 """
 
 import os
