@@ -161,10 +161,8 @@ def mergelogs(tracks):
 				fev = k
 				mintime = tracks[k][0][2]
 		event = tracks[fev].pop(0)
-		event[1] = str(event[1])
-		event[2] = str(event[2])
 		if event[0] == "note_on" or event[0] == "note_off":
-			event.insert(0, str(fev-1))
+			event.insert(0, fev-1)
 		events.append(event)
 	return events
 
@@ -176,11 +174,11 @@ def clockstomus(events, division):
 	temptemp = 0
 	for event in events:
 		if event[0] == 'tempo':
-			temptemp = temptemp + (int(event[2])-temppoint)*tempo/division
-			temppoint = int(event[2])
-			tempo = int(event[1])
-		elif event[0].isdigit():
-			event[3] = str((int(event[3])-temppoint)*tempo/division+temptemp)+'\n'
+			temptemp = temptemp + (event[2]-temppoint)*tempo/division
+			temppoint = event[2]
+			tempo = event[1]
+		elif event[1] == 'note_on' or event[1] == 'note_off':
+			event[3] = (event[3]-temppoint)*tempo/division+temptemp
 			newevents.append(event)
 	return newevents
 
@@ -191,18 +189,18 @@ def eventstonotes(ntracks, events):
 		notes.append([])
 	tempnon = []
 	for event in events:
-		if event[0].isdigit() and event[1] == 'note_on':
+		if event[1] == 'note_on':
 			tempnon.append(event)
-		elif event[0].isdigit() and event[1] == 'note_off':
+		elif event[1] == 'note_off':
 			newnote = {}
-			newnote['pitch'] = int(event[2])
+			newnote['pitch'] = event[2]
 			for i in range(len(tempnon)):
 				if tempnon[i][0] == event[0] and tempnon[i][2] == event[2]:
 					break
-			newnote['start'] = int(tempnon[i][3]) / 1000000.0 * 60
+			newnote['start'] = tempnon[i][3] / 1000000.0 * 60
 			tempnon.pop(i)
-			newnote['end'] = int(event[3]) / 1000000.0 * 60
-			notes[int(event[0])].append(newnote)
+			newnote['end'] = event[3] / 1000000.0 * 60
+			notes[event[0]].append(newnote)
 	return notes
 
 # packages note objects into a dictionary, output the dict to JSON file
