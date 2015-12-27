@@ -10,13 +10,13 @@ a{color:grey;display:block;}
 <!--[if lt IE 9]><script src="http://code.jquery.com/jquery-1.11.4.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--[if gte IE 9]><!--><script src="http://code.jquery.com/jquery-2.1.4.min.js"></script><!--<![endif]-->
 <script type="text/javascript">
 $(function(){
-	$.getJSON('Animations.json').done(function(data){
-		$.each(data['pieces'], function(i, val){
-			$('ul').append('<li><a href="Roll.html?' + val['urlParam'] + '">' + val['name'] + ' - ' + val['composer'] + ' [' + val['period'] + ']</a></li>');
-		});
-	}).fail(function(){
-		$('ul').replaceWith('<p>ERROR: unable to load JSON; check your browser settings</p>');
-	});
+    $.getJSON('Animations.json').done(function(data){
+        $.each(data['pieces'], function(i, val){
+            $('ul').append('<li><a href="Roll.html?' + val['urlParam'] + '">' + val['name'] + ' - ' + val['composer'] + ' [' + val['period'] + ']</a></li>');
+        });
+    }).fail(function(){
+        $('ul').replaceWith('<p>ERROR: unable to load JSON; check your browser settings</p>');
+    });
 });
 </script>
 </head>
