@@ -17,7 +17,7 @@ You will be prompted to provide the name of the work, the composer of the work, 
 * 0: Voice roll - each track in the piece is treated as a voice in a fugue and is assigned a color to represent the voice
 * 1: Song roll - the first and second tracks are treated as melody and counter-melody and are given piano roll bars, while all other tracks are treated as accompaniment and are given diamond notes instead
 * 2: Solo roll - the color of the note depends on its pitch rather than its voice; good for works where voices are not clear-cut and a melody-accompaniment structure is not definable
-* 3: Orchestra roll - each track is treated like an instrument in an orchestra and given a different _shape_ depending on the type of instrument (see comments in Roll.js); color depends on pitch
+* 3: Orchestra roll - each track is treated like an instrument in an orchestra and given a different _shape_ depending on the type of instrument (see comments in common.js); color depends on pitch
 
 The output will be a JSON file where each track has an assigned number, instrument type, and list of note objects.
 
