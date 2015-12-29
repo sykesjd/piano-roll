@@ -10,7 +10,7 @@ $(function(){
             var reldat2 = parttype(val);
             $.each(val['notes'], function(j, value){
                 // draw each note to screen
-                drawNote(value, reldat2[0], reldat2[1], reldat1[2], reldat1[0], reldat1[1]);
+                drawNote(i, j, value, reldat2[0], reldat2[1], reldat1[2], reldat1[0], reldat1[1]);
             });
         });
         $('.w').remove();
