@@ -3,16 +3,16 @@ function reldata(data) {
     var bp = tp;
     var pitch;
     $.each(data['allnotes']['tracks'], function(i,val){
-	    $.each(val['notes'], function(j, value){
-		    pitch = value['pitch'];
-		    tp = (pitch > tp ? pitch : tp);
-		    bp = (pitch < bp ? pitch : bp);
-	    });
+        $.each(val['notes'], function(j, value){
+            pitch = value['pitch'];
+            tp = (pitch > tp ? pitch : tp);
+            bp = (pitch < bp ? pitch : bp);
+        });
     });
     // noteHeight calculated with units vh (percentage of window height)
     var noteHeight = 168/(tp - bp);
     var style = data['rolltype'];
-	return [tp, noteHeight, style];
+    return [tp, noteHeight, style];
 }
 
 function parttype(val) {
