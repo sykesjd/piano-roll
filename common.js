@@ -32,7 +32,7 @@ function drawNote(i, j, value, part, type, style, tp, noteHeight) {
     y = (tp - value['pitch'] - 1) * noteHeight/2 + 3;
     // width decremented to space consecutive notes
     width = value['end'] - value['start'] - 1;
-    $note = $('<div></div>').addClass('note').attr('id',i+'-'+j).css({"left":x,"top":y+'vh'});
+    $note = $('<div></div>').addClass('note').attr('id',i+'-'+j).css({"left":x,"top":y+'vh','line-height':noteHeight+'vh'});
     switch (type) {
         // flutes: fully rounded oval
         case 0: $note.addClass('part' + part).css({'width':width,'height':noteHeight+'vh','border-radius':width/2+'px / '+noteHeight/2+'vh'});break;
@@ -61,6 +61,9 @@ function drawNote(i, j, value, part, type, style, tp, noteHeight) {
         $.each(value['motifs'],function(k,v){
             $note.addClass('motif'+v);
         });
+    }
+    if (value['lyric']) {
+        $note.text(value['lyric']);
     }
     $note.appendTo('body');
 }
