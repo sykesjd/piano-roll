@@ -17,7 +17,7 @@ body{background:#000;color:#999;font-family:Palatino;}
 .part10{background:#FF00FF;color:#00FF00;}
 .part11{background:#00FF7F;color:#FF0080;}
 .part12{background:#FFFFFF;color:#000000;}
-.perc{width:5px;box-shadow:0px 0px 5px #FFF;}
+.perc{width:5px !important;box-shadow:0px 0px 5px #FFF;}
 .spu,.spd{width:0px;height:0px;border-style:solid;border-color:transparent;}
 .spu{border-top-style:none;}
 .spd{border-bottom-style:none;}
