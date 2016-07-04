@@ -51,7 +51,7 @@ def main(input_filename):
     # remove extension from filename
     input_name = inputname(input_filename)
     # read in midi as text and write to a temporary file
-    readmidi(input_filename,input_name)
+    readmidi(input_filename, input_name)
     # reformat events into a list of lists, where each sublist is a track; zeroth track holds tempi
     (ntracks, division, tracks, parttypes) = converttoeventlists(input_name)
     # merge tracks together into a unified event log
@@ -63,9 +63,9 @@ def main(input_filename):
     # package all info into one dictionary, write to JSON file
     jsonout(input_name, workname, composer, rolltype, notes, parttypes)
     # print success message
-    print "JSON written to", input_name+'.json', "successfully!"
+    print "JSON written to", input_name + '.json', "successfully!"
     # remove temporary file
-    os.remove(input_name+"_temp.txt")
+    os.remove(input_name + "_temp.txt")
 
 # gets piece info from user
 def info():
@@ -82,7 +82,7 @@ def inputname(filename):
     return file.split('.')[0]
 
 # uses MidiToText to read MIDI file
-def readmidi(filename,name):
+def readmidi(filename, name):
     midiIn = MidiInFile(MidiToText(), filename)
     with open(name+'_temp.txt','w') as tempOut:
         original = sys.stdout
@@ -110,7 +110,7 @@ def converttoeventlists(name):
                 percchannel = int(sections[3], 16) == 9
                 parttypes[i] =  9 if percchannel else instrtype(instrnum)
             elif sections[0] == "note_on" or sections[0] == "note_off":
-                tracks[i].append([sections[0],int(sections[5], 16),int(sections[-1])])
+                tracks[i].append([sections[0], int(sections[5], 16), int(sections[-1])])
     tracks.insert(0, tempi)
     return (ntracks, division, tracks, parttypes)
 
@@ -140,7 +140,7 @@ def instrtype(gm1num):
         return 4
 
 # helper method: returns true if gm1num between low and high inclusive
-def between(gm1num,low,high):
+def between(gm1num, low, high):
     return gm1num >= low and gm1num <= high
 
 # merges track event logs into one event log
@@ -169,11 +169,11 @@ def clockstomus(events, division):
     newevents, tempo, temppoint, temptemp = [], 0, 0, 0
     for event in events:
         if event[0] == 'tempo':
-            temptemp = temptemp + (event[2]-temppoint)*tempo/division
+            temptemp = temptemp + (event[2] - temppoint) * tempo / division
             temppoint = event[2]
             tempo = event[1]
         elif event[1] == 'note_on' or event[1] == 'note_off':
-            event[3] = (event[3]-temppoint)*tempo/division+temptemp
+            event[3] = (event[3] - temppoint) * tempo / division + temptemp
             newevents.append(event)
     return newevents
 
