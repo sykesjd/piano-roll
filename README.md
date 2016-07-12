@@ -45,3 +45,4 @@ This work is still in progress; future changes will include:
 * More pieces, of course
 * Moving the calculations involved in getting notes on the screen from the client to the server to remove the possibility of freezing browsers
   * I've learned the hard way that Github doesn't allow live hosting of PHP files, so this goal will have to come later
+  * Perhaps a NodeJS implementation of this project would be feasible, but I will leave that task for last

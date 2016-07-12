@@ -1,16 +1,19 @@
-$(function(){
+/**
+ * Lyricize.js: Draws a piano roll for the purpose of adding lyrics
+ */
+$(() => {
     // get piece name as it appears in the file system
-    var piece = $(location).attr('href').split('?')[1];
-    $.getJSON('./JSON/' + piece + '.json').done(function(data) {
+    let piece = $(location).attr('href').split('?')[1];
+    $.getJSON('./JSON/' + piece + '.json').done((data) => {
         // calculate data necessary for proper note size and placement
-        var reldat1 = reldata(data);
+        let reldat1 = tools.reldata(data);
         // for each track in the piece
-        $.each(data['allnotes']['tracks'], function(i, val) {
+        $.each(data['allnotes']['tracks'], (i, val) => {
             // get part number and type of track
-            var reldat2 = parttype(val);
-            $.each(val['notes'], function(j, value) {
+            let reldat2 = tools.parttype(val);
+            $.each(val['notes'], (j, value) => {
                 // draw each note to screen
-                drawNote(i, j, value, reldat2[0], 4, reldat1[2], reldat1[0], reldat1[1]);
+                tools.drawNote(i, j, value, reldat2[0], 4, reldat1[2], reldat1[0], reldat1[1]);
             });
         });
         $('.w').remove();
@@ -18,22 +21,22 @@ $(function(){
         $('.but').show();
         $('body').scrollLeft(0);
         // core of motify: allow user to select motifs and print resulting JSON to console
-        var newdata = data;
-        var reset = data;
-        var $curr;
-        $('.note').click(function() {
+        let newdata = data;
+        let reset = data;
+        let $curr;
+        $('.note').click((e) => {
             if ($curr) $curr.toggleClass('selected');
-            $(this).toggleClass('selected');
-            $curr = $(this);
+            $(e.target).toggleClass('selected');
+            $curr = $(e.target);
             $('#entry').focus();
         });
-        $(document).keydown(function(e) {
+        $(document).keydown((e) => {
             if (e.which == 9) {
                 e.preventDefault();
                 $('#entry').focus();
             } else return;
         });
-        $('#entry').keydown(function(e) {
+        $('#entry').keydown((e) => {
             if (e.which == 32 || e.which == 9) {
                 // space or tab: to next note
                 e.preventDefault();
@@ -55,15 +58,16 @@ $(function(){
                 $('#entry').val('');
             } else return;
         });
-        $('#ptc').click(function() {
-            $('.note').each(function() {
-                var index = $(this).attr('id').split('-');
-                newdata['allnotes']['tracks'][parseInt(index[0])]['notes'][parseInt(index[1])]['lyric'] = $(this).text();
+        $('#ptc').click(() => {
+            let index;
+            $('.note').each((i, note) => {
+                index = $(note).attr('id').split('-');
+                newdata['allnotes']['tracks'][parseInt(index[0])]['notes'][parseInt(index[1])]['lyric'] = $(note).text();
             });
             console.log(JSON.stringify(newdata));
             newdata = reset;
         });
-    }).fail(function() {
+    }).fail(() => {
         $('.w').html('Error loading data file; check your browser settings');
     });
 });
