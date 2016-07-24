@@ -9,8 +9,8 @@ const tools = {
         let tp = data['allnotes']['tracks'][0]['notes'][0]['pitch'];
         let bp = tp;
         let pitch;
-        $.each(data['allnotes']['tracks'], function(i,val){
-            $.each(val['notes'], function(j, value){
+        $.each(data['allnotes']['tracks'], (i,val) => {
+            $.each(val['notes'], (j, value) => {
                 pitch = value['pitch'];
                 tp = (pitch > tp ? pitch : tp);
                 bp = (pitch < bp ? pitch : bp);
@@ -26,6 +26,18 @@ const tools = {
      */
     parttype: (val) => [val['number'], (val['type'] || val['type'] == 0) ? val['type'] : 4],
     /*
+     * Builds the base CSS styling for a note
+     */
+    noteStyle: (x, y, width, noteHeight) => {
+        return {
+            'left': x,
+            'top': y + 'vh',
+            'width': width,
+            'height': noteHeight + 'vh',
+            'line-height': noteHeight + 'vh'
+        };
+    },
+    /*
      * Draws a note to the roll
      */
     drawNote: (i, j, value, part, type, style, tp, noteHeight) => {
@@ -39,8 +51,7 @@ const tools = {
         x = value['start'] + 200;
         // y position calculated with units vh (percentage of window height)
         y = (tp - value['pitch'] - 1) * noteHeight/2 + 3;
-        $note = $('<div></div>').addClass('note').attr('id',i+'-'+j)
-                    .css({'left': x, 'top': y + 'vh', 'width': width, 'height': noteHeight + 'vh', 'line-height': noteHeight + 'vh'});
+        $note = $('<div></div>').addClass('note').attr('id',i+'-'+j).css(tools.noteStyle(x, y, width, noteHeight));
         switch (type) {
             case 0: $note = tools.flute($note, part, width, noteHeight); break;
             case 1: $note = tools.doubleReed($note, part, width, noteHeight); break;
@@ -56,14 +67,10 @@ const tools = {
             case 9: $note = tools.percussion($note, 12); break;
             case 10: $note = tools.accompaniment($note, part, noteHeight); break;
         }
-        if (value['motifs']) {
-            $.each(value['motifs'],function(k,v){
-                $note.addClass('motif'+v);
-            });
-        }
-        if (value['lyric']) {
+        if (value['motifs'])
+            $.each(value['motifs'], (k,v) => $note.addClass('motif'+v));
+        if (value['lyric'])
             $note.text(value['lyric']);
-        }
         $note.appendTo('body');
     },
     /*
