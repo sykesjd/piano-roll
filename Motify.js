@@ -23,9 +23,7 @@ $(() => {
         // core of motify: allow user to select motifs and print resulting JSON to console
         let newdata = data;
         $.each(data['allnotes']['tracks'], (i, val) => {
-            $.each(val['notes'], (j, value) => {
-                value['motifs'] = [];
-            });
+            $.each(val['notes'], (j, value) => value['motifs'] = []);
         });
         let reset = newdata;
         let $curr;
