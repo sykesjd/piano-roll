@@ -133,7 +133,7 @@ const tools = {
      * Draws a song accompaniment note (small grey diamond) to the roll
      */
     accompaniment: ($note, part, height) =>
-        $note.addClass('sp12').css({'left': (x-5)})
+        $note.addClass('sp12')
             .append($('<div></div>').addClass('spu')
                 .css({'border-bottom-width': height/2 + 'vh'}))
             .append($('<div></div>').addClass('spd')
