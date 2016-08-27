@@ -23,8 +23,8 @@ require('fs').readFile(process.argv[2], (err, buffer) => {
 		let trackEvents = tools.getTrackEventsObject(midiFile);
 		let notesObj = tools.eventsToNotes(trackEvents);
 		let jsonToWrite = tools.addMetadata(notesObj, meta);
-		let fileName = 'JSON/' + meta.workName + '.json';
-		require('jsonfile').writeFile('JSON/' + meta.workName + '.json', jsonToWrite, (e) => {
+		let fileName = 'JSON/' + process.argv[2].split('.')[0] + '.json';
+		require('jsonfile').writeFile(fileName, jsonToWrite, (e) => {
 			if (e) throw e;
 			console.log('MIDI successfully converted to JSON at ' + fileName);
 			process.exit(0);
