@@ -3,6 +3,7 @@
 This repository stores experiments in creating an in-browser piano roll from a MIDI file. It contains the following things of import:
 
 ## MIDItoJSON.js
+
 MIDItoJSON is a NodeJS script to convert a MIDI file into a JSON file readable by the roll page. It is executed by providing the MIDI file as a command line argument like so:
 
 ```
@@ -43,8 +44,7 @@ The roll page takes the JSON representation of a MIDI file and draws a piano rol
 
 This work is still in progress; future changes will include:
 
-* Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
+* Moving the calculations involved in getting notes on the screen into a Web Worker to remove the possibility of freezing browsers
 * More pieces, of course
-* Moving the calculations involved in getting notes on the screen from the client to the server to remove the possibility of freezing browsers
-  * I've learned the hard way that Github doesn't allow live hosting of PHP files, so this goal will have to come later
-  * Perhaps a NodeJS implementation of this project would be feasible, but I will leave that task for last
+* Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
+    * This task is beyond the scope of this project, I fear. A program such as http://www.ee.columbia.edu/ln/rosa/matlab/alignmidi/ provides the means to perform such alignment separate from this project.
