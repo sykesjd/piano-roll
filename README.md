@@ -2,14 +2,14 @@
 
 This repository stores experiments in creating an in-browser piano roll from a MIDI file. It contains the following things of import:
 
-## MIDItoJSON.py
-MIDItoJSON uses a modified version of EchoNest Remix's MIDI API to convert a MIDI file into a JSON file readable by the roll page. It is executed by providing the MIDI file as a command line argument like so:
+## MIDItoJSON.js
+MIDItoJSON is a NodeJS script to convert a MIDI file into a JSON file readable by the roll page. It is executed by providing the MIDI file as a command line argument like so:
 
 ```
-python MIDItoJSON.py <name_of_midi_file>
+node MIDItoJSON.js <name_of_midi_file>
 
 # for example
-python MIDItoJSON.py BWV552.mid
+node MIDItoJSON.js BWV552.mid
 ```
 
 You will be prompted to provide the name of the work, the composer of the work, and the type of roll with which the piece will be represented, where the roll type is denoted as an integer like so:
@@ -20,6 +20,8 @@ You will be prompted to provide the name of the work, the composer of the work, 
 * 3: Orchestra roll - each track is treated like an instrument in an orchestra and given a different _shape_ depending on the type of instrument (see comments in common.js); color depends on pitch
 
 The output will be a JSON file where each track has an assigned number, instrument type, and list of note objects.
+
+The script requires the `midifile` and `jsonfile` packages to be installed via npm.
 
 ## Motify
 
