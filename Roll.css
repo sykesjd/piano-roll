@@ -49,17 +49,17 @@ body{background:#000;color:#999;font-family:Palatino;}
 .sp12 div{border-width:0px 5px;}
 .sp12 .spu{border-bottom-color:#666666;}
 .sp12 .spd{border-top-color:#666666;}
-.motif0{box-shadow:0px 0px 15px #FF0000;}
-.motif1{box-shadow:0px 0px 15px #007FFF;}
-.motif2{box-shadow:0px 0px 15px #FFFF00;}
-.motif3{box-shadow:0px 0px 15px #7F00FF;}
-.motif4{box-shadow:0px 0px 15px #00FF00;}
-.motif5{box-shadow:0px 0px 15px #FF007F;}
-.motif6{box-shadow:0px 0px 15px #00FFFF;}
-.motif7{box-shadow:0px 0px 15px #FF7F00;}
-.motif8{box-shadow:0px 0px 15px #0000FF;}
-.motif9{box-shadow:0px 0px 15px #7FFF00;}
-.motif10{box-shadow:0px 0px 15px #FF00FF;}
-.motif11{box-shadow:0px 0px 15px #00FF7F;}
-.motif12{box-shadow:0px 0px 15px #FFFFFF;}
+.motif0{filter:drop-shadow(0px 0px 5px #FF0000);-webkit-filter:drop-shadow(0px 0px 5px #FF0000);}
+.motif1{filter:drop-shadow(0px 0px 5px #007FFF);-webkit-filter:drop-shadow(0px 0px 5px #007FFF);}
+.motif2{filter:drop-shadow(0px 0px 5px #FFFF00);-webkit-filter:drop-shadow(0px 0px 5px #FFFF00);}
+.motif3{filter:drop-shadow(0px 0px 5px #7F00FF);-webkit-filter:drop-shadow(0px 0px 5px #7F00FF);}
+.motif4{filter:drop-shadow(0px 0px 5px #00FF00);-webkit-filter:drop-shadow(0px 0px 5px #00FF00);}
+.motif5{filter:drop-shadow(0px 0px 5px #FF007F);-webkit-filter:drop-shadow(0px 0px 5px #FF007F);}
+.motif6{filter:drop-shadow(0px 0px 5px #00FFFF);-webkit-filter:drop-shadow(0px 0px 5px #00FFFF);}
+.motif7{filter:drop-shadow(0px 0px 5px #FF7F00);-webkit-filter:drop-shadow(0px 0px 5px #FF7F00);}
+.motif8{filter:drop-shadow(0px 0px 5px #0000FF);-webkit-filter:drop-shadow(0px 0px 5px #0000FF);}
+.motif9{filter:drop-shadow(0px 0px 5px #7FFF00);-webkit-filter:drop-shadow(0px 0px 5px #7FFF00);}
+.motif10{filter:drop-shadow(0px 0px 5px #FF00FF);-webkit-filter:drop-shadow(0px 0px 5px #FF00FF);}
+.motif11{filter:drop-shadow(0px 0px 5px #00FF7F);-webkit-filter:drop-shadow(0px 0px 5px #00FF7F);}
+.motif12{filter:drop-shadow(0px 0px 5px #FFFFFF);-webkit-filter:drop-shadow(0px 0px 5px #FFFFFF);}
 .selected{box-shadow:0px 0px 25px #FFF;}
