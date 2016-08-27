@@ -74,19 +74,27 @@ const tools = {
         let x = note.start + LEFT_START;
         // y position calculated with units vh (percentage of window height)
         let y = (drawData.tp - note.pitch - 1) * drawData.noteHeight/2 + 3;
+        let motifs = note.motifs ? note.motifs : [];
+        let motifString = '';
+        motifs.forEach((m) => {
+            motifString += ' motif' + m;
+        });
+        let lyric = note.lyric ? note.lyric : '';
         return {
             partNum: partNum,
             type: type,
             width: width,
             x: x,
-            y: y
+            y: y,
+            motifs: motifString,
+            lyric: lyric
         };
     }
 };
 
 const drawNote = {
     flute: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -96,7 +104,7 @@ const drawNote = {
                                     + 'border-radius:' + noteDrawData.width / 2 + 'px / ' + drawData.noteHeight / 2 + 'vh;"></div>');
     },
     doubleReed: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -106,7 +114,7 @@ const drawNote = {
                                     + 'border-radius:' + noteDrawData.width / 4 + 'px / ' + drawData.noteHeight / 2 + 'vh;"></div>');
     },
     singleReed: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -116,7 +124,7 @@ const drawNote = {
                                     + 'border-radius:' + noteDrawData.width / 3 + 'px / ' + drawData.noteHeight / 2 + 'vh;"></div>');
     },
     conicalBrass: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -126,16 +134,16 @@ const drawNote = {
                                     + 'border-radius:' + drawData.noteHeight / 2 + 'vh;"></div>');
     },
     cylinderAndDefault: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
                                     + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;"></div>');
+                                    + 'line-height:' + drawData.noteHeight + 'vh;">' + noteDrawData.lyric + '</div>');
     },
     bowedStrings: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note sp' + noteDrawData.partNum + '"\
+        postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -151,7 +159,7 @@ const drawNote = {
                     </div>');
     },
     pluckedStrings: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -168,7 +176,7 @@ const drawNote = {
                     </div>');
     },
     orchKeyboard: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note sp' + noteDrawData.partNum + '"\
+        postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -181,7 +189,7 @@ const drawNote = {
                     </div>');
     },
     percussion: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note perc part' + noteDrawData.partNum + '"\
+        postMessage('<div class="note perc part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
@@ -189,7 +197,7 @@ const drawNote = {
                                     + 'line-height:' + drawData.noteHeight + 'vh;"></div>');
     },
     accompaniment: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note sp12"\
+        postMessage('<div class="note sp12' + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
