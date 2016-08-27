@@ -28,8 +28,9 @@ $(() => {
         let reset = newdata;
         let $curr;
         $('.note').click((e) => {
-            $(e.target).toggleClass('motif' + $('#motifbox').val());
-            $curr = $(e.target);
+            let target = $(e.target).hasClass('note') ? $(e.target) : $(e.target).parent('.note');
+            target.toggleClass('motif' + $('#motifbox').val());
+            $curr = target;
         });
         $(document).keydown((e) => {
             if (e.which == 39) {
