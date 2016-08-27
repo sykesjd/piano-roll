@@ -44,7 +44,7 @@ The roll page takes the JSON representation of a MIDI file and draws a piano rol
 
 This work is still in progress; future changes will include:
 
-* Moving the calculations involved in getting notes on the screen into a Web Worker to remove the possibility of freezing browsers
+* Refactoring Motify and Lyricize to use the same Web Worker as the Roll page proper
 * More pieces, of course
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
     * This task is beyond the scope of this project, I fear. A program such as http://www.ee.columbia.edu/ln/rosa/matlab/alignmidi/ provides the means to perform such alignment separate from this project.
