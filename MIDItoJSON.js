@@ -3,6 +3,9 @@
  */
 'use strict';
 
+/*
+ * Ensure MIDI file name is provided
+ */
 if (process.argv.length < 3 || process.argv[2].split('.')[1] !== 'mid') {
 	console.log('Usage: node MIDItoJSON.js <midiFileName>');
 	process.exit(-1);
@@ -16,6 +19,9 @@ const rl = require('readline').createInterface({
 });
 const MidiEvents = require('midievents');
 
+/*
+ * Get MIDI file then convert to JSON file using user-inputed metadata
+ */
 require('fs').readFile(process.argv[2], (err, buffer) => {
 	if (err) throw err;
 	tools.getInfoFromUser((meta) => {
@@ -32,7 +38,13 @@ require('fs').readFile(process.argv[2], (err, buffer) => {
 	});
 });
 
+/*
+ * Helper functions for the above script
+ */
 const tools = {
+	/*
+	 * Get piece metadata from the user
+	 */
 	getInfoFromUser: (callback) => {
 		rl.question('Enter work name: ', (workname) => {
 			rl.question('Enter composer name: ', (composer) => {
@@ -47,6 +59,9 @@ const tools = {
 			});
 		});
 	},
+	/*
+	 * Extract instrument type and note events for each track
+	 */
 	getTrackEventsObject: (midiFile) => {
 		let teobj = {
 			tracks: []
@@ -72,6 +87,9 @@ const tools = {
 		});
 		return teobj;
 	},
+	/*
+	 * Convert note on and note off events into note objects
+	 */
 	eventsToNotes: (trackEvents) => {
 		let notesObj = {
 			tracks: []
@@ -100,6 +118,9 @@ const tools = {
 		});
 		return notesObj;
 	},
+	/*
+	 * Add user-inputed metadata to JSON to write to file
+	 */
 	addMetadata: (notesObj, meta) => {
 		return {
 			name: meta.workName,
@@ -108,6 +129,9 @@ const tools = {
 			allnotes: notesObj
 		};
 	},
+	/*
+	 * Get the instrument type from the General MIDI Level 1 instrument number
+	 */
 	instrumentType: (gmNum) => {
 		if (tools.between(gmNum, 72, 79))
 	        return 0;
@@ -132,5 +156,8 @@ const tools = {
 	    else // instrument number not in GM1 spec; give rectangle shape
 	        return 4;
 	},
+	/*
+	 * Return whether gmNum is between low and high inclusive
+	 */
 	between: (gmNum, low, high) => gmNum >= low && gmNum <= high
 };
