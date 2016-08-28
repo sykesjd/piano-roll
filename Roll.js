@@ -1,7 +1,7 @@
 /**
  * Roll.js: draws an animated piano roll synced to an MP3
  */
- $(() => {
+$(() => {
  	if (typeof(Worker) !== 'undefined') {
  		// get piece name as it appears in the file system
  		let piece = $(location).attr('href').split('?')[1];
@@ -30,4 +30,4 @@
  	} else {
  		$('#result').text('Your browser does not support Web Workers');
  	}
- });
+});

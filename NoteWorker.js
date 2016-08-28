@@ -159,7 +159,7 @@ const drawNote = {
                     </div>');
     },
     pluckedStrings: (i, j, drawData, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
+        postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'

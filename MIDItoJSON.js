@@ -3,14 +3,6 @@
  */
 'use strict';
 
-/*
- * Ensure MIDI file name is provided
- */
-if (process.argv.length < 3 || process.argv[2].split('.')[1] !== 'mid') {
-	console.log('Usage: node MIDItoJSON.js <midiFileName>');
-	process.exit(-1);
-}
-
 const STOMUS = 1000000.0;
 const STOPX = 60.0;
 const rl = require('readline').createInterface({
@@ -18,6 +10,15 @@ const rl = require('readline').createInterface({
 	output: process.stdout
 });
 const MidiEvents = require('midievents');
+
+/*
+ * Ensure MIDI file name is provided
+ */
+if (process.argv.length < 3 || require('path').extname(process.argv[2]) !== '.mid') {
+	console.log('Usage: node MIDItoJSON.js <midiFileName>');
+	process.exit(-1);
+}
+
 
 /*
  * Get MIDI file then convert to JSON file using user-inputed metadata
