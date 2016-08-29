@@ -1,42 +1,31 @@
 const LEFT_START = 200;
 
-onmessage = (piece) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            let json = JSON.parse(xhttp.responseText);
-            let drawData = tools.drawData(json);
-            json.allnotes.tracks.forEach((track, i) => {
-                track.notes.forEach((note, j) => {
-                    let noteDrawData = tools.noteDrawData(note, track, drawData);
-                    switch (noteDrawData.type) {
-                        case 0: drawNote.flute(i, j, drawData, noteDrawData); break;
-                        case 1: drawNote.doubleReed(i, j, drawData, noteDrawData); break;
-                        case 2: drawNote.singleReed(i, j, drawData, noteDrawData); break;
-                        case 3: drawNote.conicalBrass(i, j, drawData, noteDrawData); break;
-                        case 4: drawNote.cylinderAndDefault(i, j, drawData, noteDrawData); break;
-                        case 5: drawNote.bowedStrings(i, j, drawData, noteDrawData); break;
-                        case 6: drawNote.pluckedStrings(i, j, drawData, noteDrawData); break;
-                        case 7: drawNote.orchKeyboard(i, j, drawData, noteDrawData); break;
-                        case 8: case 9: drawNote.percussion(i, j, drawData, noteDrawData); break;
-                        case 10: drawNote.accompaniment(i, j, drawData, noteDrawData); break;
-                    }
-                });
-            });
-            postMessage({
-                meta: {
-                    name: json.name,
-                    composer: json.composer
-                }
-            });
-        } else if (xhttp.readyState == 4 && xhttp.status !== 200) {
-            postMessage({
-                error: 'Error loading data file; check your browser settings'
-            });
+onmessage = (message) => {
+    let json = message.data;
+    let drawData = tools.drawData(json);
+    json.allnotes.tracks.forEach((track, i) => {
+        track.notes.forEach((note, j) => {
+            let noteDrawData = tools.noteDrawData(note, track, drawData);
+            switch (noteDrawData.type) {
+                case 0: drawNote.flute(i, j, drawData, noteDrawData); break;
+                case 1: drawNote.doubleReed(i, j, drawData, noteDrawData); break;
+                case 2: drawNote.singleReed(i, j, drawData, noteDrawData); break;
+                case 3: drawNote.conicalBrass(i, j, drawData, noteDrawData); break;
+                case 4: drawNote.cylinderAndDefault(i, j, drawData, noteDrawData); break;
+                case 5: drawNote.bowedStrings(i, j, drawData, noteDrawData); break;
+                case 6: drawNote.pluckedStrings(i, j, drawData, noteDrawData); break;
+                case 7: drawNote.orchKeyboard(i, j, drawData, noteDrawData); break;
+                case 8: case 9: drawNote.percussion(i, j, drawData, noteDrawData); break;
+                case 10: drawNote.accompaniment(i, j, drawData, noteDrawData); break;
+            }
+        });
+    });
+    postMessage({
+        meta: {
+            name: json.name,
+            composer: json.composer
         }
-    };
-    xhttp.open('GET', 'JSON/' + piece.data + '.json', false);
-    xhttp.send();
+    });
 };
 
 const tools = {
