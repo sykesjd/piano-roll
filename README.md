@@ -18,7 +18,7 @@ You will be prompted to provide the name of the work, the composer of the work, 
 * 0: Voice roll - each track in the piece is treated as a voice in a fugue and is assigned a color to represent the voice
 * 1: Song roll - the first and second tracks are treated as melody and counter-melody and are given piano roll bars, while all other tracks are treated as accompaniment and are given diamond notes instead
 * 2: Solo roll - the color of the note depends on its pitch rather than its voice; good for works where voices are not clear-cut and a melody-accompaniment structure is not definable
-* 3: Orchestra roll - each track is treated like an instrument in an orchestra and given a different _shape_ depending on the type of instrument (see comments in common.js); color depends on pitch
+* 3: Orchestra roll - each track is treated like an instrument in an orchestra and given a different _shape_ depending on the type of instrument; color depends on pitch
 
 The output will be a JSON file where each track has an assigned number, instrument type, and list of note objects.
 
@@ -44,7 +44,6 @@ The roll page takes the JSON representation of a MIDI file and draws a piano rol
 
 This work is still in progress; future changes will include:
 
-* Refactoring Motify and Lyricize to use the same Web Worker as the Roll page proper
 * More pieces, of course
 * Matching MIDI to real performance: currently, the MIDI and MP3 files are coming from the same source; in the future, I would like to be able to align a MIDI file to an external performance - because MIDI Wagner clearly doesn't cut it
     * This task is beyond the scope of this project, I fear. A program such as http://www.ee.columbia.edu/ln/rosa/matlab/alignmidi/ provides the means to perform such alignment separate from this project.

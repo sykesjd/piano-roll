@@ -1,11 +1,17 @@
+/**
+ * NoteWorker.js: calculates styling data for all notes to print to page
+ */
 const LEFT_START = 200;
 
+/*
+ * Receives data from page and sends back metadata and notes to be drawn
+ */
 onmessage = (message) => {
     let json = message.data;
-    let drawData = tools.drawData(json);
+    let drawData = drawTools.drawData(json);
     json.allnotes.tracks.forEach((track, i) => {
         track.notes.forEach((note, j) => {
-            let noteDrawData = tools.noteDrawData(note, track, drawData);
+            let noteDrawData = drawTools.noteDrawData(note, track, drawData);
             switch (noteDrawData.type) {
                 case 0: drawNote.flute(i, j, drawData, noteDrawData); break;
                 case 1: drawNote.doubleReed(i, j, drawData, noteDrawData); break;
@@ -28,7 +34,10 @@ onmessage = (message) => {
     });
 };
 
-const tools = {
+/*
+ * Helper methods calcuating draw data for notes
+ */
+const drawTools = {
     drawData: (json) => {
         let style = json.rolltype;
         let tp = json.allnotes.tracks[0].notes[0].pitch;
@@ -81,6 +90,9 @@ const tools = {
     }
 };
 
+/*
+ * Methods for drawing notes for different instrument types
+ */
 const drawNote = {
     flute: (i, j, drawData, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
