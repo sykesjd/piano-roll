@@ -13,16 +13,16 @@ onmessage = (message) => {
         track.notes.forEach((note, j) => {
             let noteDrawData = drawTools.noteDrawData(note, track, drawData);
             switch (noteDrawData.type) {
-                case 0: drawNote.flute(i, j, drawData, noteDrawData); break;
-                case 1: drawNote.doubleReed(i, j, drawData, noteDrawData); break;
-                case 2: drawNote.singleReed(i, j, drawData, noteDrawData); break;
-                case 3: drawNote.conicalBrass(i, j, drawData, noteDrawData); break;
-                case 4: drawNote.cylinderAndDefault(i, j, drawData, noteDrawData); break;
-                case 5: drawNote.bowedStrings(i, j, drawData, noteDrawData); break;
-                case 6: drawNote.pluckedStrings(i, j, drawData, noteDrawData); break;
-                case 7: drawNote.orchKeyboard(i, j, drawData, noteDrawData); break;
-                case 8: case 9: drawNote.percussion(i, j, drawData, noteDrawData); break;
-                case 10: drawNote.accompaniment(i, j, drawData, noteDrawData); break;
+                case 0: drawNote.flute(i, j, noteDrawData); break;
+                case 1: drawNote.doubleReed(i, j, noteDrawData); break;
+                case 2: drawNote.singleReed(i, j, noteDrawData); break;
+                case 3: drawNote.conicalBrass(i, j, noteDrawData); break;
+                case 4: drawNote.cylinderAndDefault(i, j, noteDrawData); break;
+                case 5: drawNote.bowedStrings(i, j, noteDrawData); break;
+                case 6: drawNote.pluckedStrings(i, j, noteDrawData); break;
+                case 7: drawNote.orchKeyboard(i, j, noteDrawData); break;
+                case 8: case 9: drawNote.percussion(i, j, noteDrawData); break;
+                case 10: drawNote.accompaniment(i, j, noteDrawData); break;
             }
         });
     });
@@ -82,6 +82,7 @@ const drawTools = {
             partNum: partNum,
             type: type,
             width: width,
+            height: drawData.noteHeight,
             x: x,
             y: y,
             motifs: motifString,
@@ -94,119 +95,119 @@ const drawTools = {
  * Methods for drawing notes for different instrument types
  */
 const drawNote = {
-    flute: (i, j, drawData, noteDrawData) => {
+    flute: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;'
-                                    + 'border-radius:' + noteDrawData.width / 2 + 'px / ' + drawData.noteHeight / 2 + 'vh;"></div>');
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;'
+                                    + 'border-radius:' + noteDrawData.width / 2 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
     },
-    doubleReed: (i, j, drawData, noteDrawData) => {
+    doubleReed: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;'
-                                    + 'border-radius:' + noteDrawData.width / 4 + 'px / ' + drawData.noteHeight / 2 + 'vh;"></div>');
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;'
+                                    + 'border-radius:' + noteDrawData.width / 4 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
     },
-    singleReed: (i, j, drawData, noteDrawData) => {
+    singleReed: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;'
-                                    + 'border-radius:' + noteDrawData.width / 3 + 'px / ' + drawData.noteHeight / 2 + 'vh;"></div>');
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;'
+                                    + 'border-radius:' + noteDrawData.width / 3 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
     },
-    conicalBrass: (i, j, drawData, noteDrawData) => {
+    conicalBrass: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;'
-                                    + 'border-radius:' + drawData.noteHeight / 2 + 'vh;"></div>');
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;'
+                                    + 'border-radius:' + noteDrawData.height / 2 + 'vh;"></div>');
     },
-    cylinderAndDefault: (i, j, drawData, noteDrawData) => {
+    cylinderAndDefault: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;">' + noteDrawData.lyric + '</div>');
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;">' + noteDrawData.lyric + '</div>');
     },
-    bowedStrings: (i, j, drawData, noteDrawData) => {
+    bowedStrings: (i, j, noteDrawData) => {
         postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;">\
-                        <div class="spu" style="border-bottom-width:' + drawData.noteHeight / 2 + 'vh;'
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;">\
+                        <div class="spu" style="border-bottom-width:' + noteDrawData.height / 2 + 'vh;'
                                                 + 'border-left-width:' + noteDrawData.width / 2 + 'px;'
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
-                        <div class="spd" style="border-top-width:' + drawData.noteHeight / 2 + 'vh;'
+                        <div class="spd" style="border-top-width:' + noteDrawData.height / 2 + 'vh;'
                                                 + 'border-left-width:' + noteDrawData.width / 2 + 'px;'
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
                     </div>');
     },
-    pluckedStrings: (i, j, drawData, noteDrawData) => {
+    pluckedStrings: (i, j, noteDrawData) => {
         postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;">\
-                        <div class="spu" style="border-bottom-width:' + drawData.noteHeight / 3 + 'vh;'
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;">\
+                        <div class="spu" style="border-bottom-width:' + noteDrawData.height / 3 + 'vh;'
                                                 + 'border-left-width:' + noteDrawData.width / 2 + 'px;'
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
-                        <div class="part' + noteDrawData.partNum + '" style="height:' + drawData.noteHeight / 3 + 'vh;"></div>\
-                        <div class="spd" style="border-top-width:' + drawData.noteHeight / 3 + 'vh;'
+                        <div class="part' + noteDrawData.partNum + '" style="height:' + noteDrawData.height / 3 + 'vh;"></div>\
+                        <div class="spd" style="border-top-width:' + noteDrawData.height / 3 + 'vh;'
                                                 + 'border-left-width:' + noteDrawData.width / 2 + 'px;'
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
                     </div>');
     },
-    orchKeyboard: (i, j, drawData, noteDrawData) => {
+    orchKeyboard: (i, j, noteDrawData) => {
         postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;">\
-                        <div class="spu" style="border-bottom-width:' + drawData.noteHeight + 'vh;'
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;">\
+                        <div class="spu" style="border-bottom-width:' + noteDrawData.height + 'vh;'
                                                 + 'border-left-width:' + noteDrawData.width / 2 + 'px;'
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
                     </div>');
     },
-    percussion: (i, j, drawData, noteDrawData) => {
+    percussion: (i, j, noteDrawData) => {
         postMessage('<div class="note perc part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;"></div>');
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;"></div>');
     },
-    accompaniment: (i, j, drawData, noteDrawData) => {
+    accompaniment: (i, j, noteDrawData) => {
         postMessage('<div class="note sp12' + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
-                                    + 'height:' + drawData.noteHeight + 'vh;'
-                                    + 'line-height:' + drawData.noteHeight + 'vh;">\
-                        <div class="spu" style="border-bottom-width:' + drawData.noteHeight / 2 + 'vh;"></div>\
-                        <div class="spd" style="border-top-width:' + drawData.noteHeight / 2 + 'vh;"></div>\
+                                    + 'height:' + noteDrawData.height + 'vh;'
+                                    + 'line-height:' + noteDrawData.height + 'vh;">\
+                        <div class="spu" style="border-bottom-width:' + noteDrawData.height / 2 + 'vh;"></div>\
+                        <div class="spd" style="border-top-width:' + noteDrawData.height / 2 + 'vh;"></div>\
                     </div>');
     }
 };
