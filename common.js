@@ -13,8 +13,6 @@ const getRoll = (callback) => {
      				w.terminate();
      				$('.w').remove();
      				callback(piece, data);
-     			} else if (event.data.maxright) {
-     				$('#scrollallow').css({'left': event.data.maxright});
      			} else {
      				$(event.data).appendTo('#roll');
      			}
