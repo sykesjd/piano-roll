@@ -1,10 +1,10 @@
 /**
- * NoteWorker.js: calculates styling data for all notes to print to page
+ * NoteWorker.js: calculates styling data for all individual notes to print to page
  */
 const LEFT_START = 200;
 
 /*
- * Receives data from page and sends back metadata and notes to be drawn
+ * Receives data from page and sends back notes to be drawn and piece metadata
  */
 onmessage = (message) => {
     let json = message.data;
@@ -12,18 +12,7 @@ onmessage = (message) => {
     json.allnotes.tracks.forEach((track, i) => {
         track.notes.forEach((note, j) => {
             let noteDrawData = drawTools.noteDrawData(note, track, drawData);
-            switch (noteDrawData.type) {
-                case 0: drawNote.flute(i, j, noteDrawData); break;
-                case 1: drawNote.doubleReed(i, j, noteDrawData); break;
-                case 2: drawNote.singleReed(i, j, noteDrawData); break;
-                case 3: drawNote.conicalBrass(i, j, noteDrawData); break;
-                case 4: drawNote.cylinderAndDefault(i, j, noteDrawData); break;
-                case 5: drawNote.bowedStrings(i, j, noteDrawData); break;
-                case 6: drawNote.pluckedStrings(i, j, noteDrawData); break;
-                case 7: drawNote.orchKeyboard(i, j, noteDrawData); break;
-                case 8: case 9: drawNote.percussion(i, j, noteDrawData); break;
-                case 10: drawNote.accompaniment(i, j, noteDrawData); break;
-            }
+            drawNote[types[noteDrawData.type]](i, j, noteDrawData);
         });
     });
     postMessage({
@@ -35,9 +24,29 @@ onmessage = (message) => {
 };
 
 /*
+ * Instrument type names indexed by instrument type numbers
+ */
+const types = [
+    'flute',
+    'doubleReed',
+    'singleReed',
+    'conicalBrass',
+    'cylinderAndDefault',
+    'bowedStrings',
+    'pluckedStrings',
+    'orchKeyboard',
+    'percussion', // pitched
+    'percussion', // unpitched
+    'accompaniment'
+];
+
+/*
  * Helper methods calcuating draw data for notes
  */
 const drawTools = {
+    /*
+     * Get draw data common for entire roll
+     */
     drawData: (json) => {
         let style = json.rolltype;
         let tp = json.allnotes.tracks[0].notes[0].pitch;
@@ -50,10 +59,7 @@ const drawTools = {
                 maxright = (note.end > maxright ? note.end : maxright);
             });
         });
-        maxright += LEFT_START;
-        postMessage({
-            maxright: maxright
-        });
+        postMessage('<div id="scrollallow" style="left:' + (maxright + LEFT_START) + 'px;"></div>');
         let noteHeight = 168/(tp - bp);
         return {
             style: style,
@@ -61,6 +67,9 @@ const drawTools = {
             noteHeight: noteHeight
         };
     },
+    /*
+     * Get draw data for individual notes
+     */
     noteDrawData: (note, track, drawData) => {
         // if style is solo or orch, part number corresponds to pitch
         let partNum = (drawData.style > 1) ? (note.pitch % 12) : (drawData.style == 9 ? 12 : track.number);
@@ -95,6 +104,9 @@ const drawTools = {
  * Methods for drawing notes for different instrument types
  */
 const drawNote = {
+    /*
+     * Flutes: fully rounded oval
+     */
     flute: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -105,6 +117,9 @@ const drawNote = {
                                     + 'line-height:' + noteDrawData.height + 'vh;'
                                     + 'border-radius:' + noteDrawData.width / 2 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
     },
+    /*
+     * Double reeds: flattened oval
+     */
     doubleReed: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -115,6 +130,9 @@ const drawNote = {
                                     + 'line-height:' + noteDrawData.height + 'vh;'
                                     + 'border-radius:' + noteDrawData.width / 4 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
     },
+    /*
+     * Single reeds: half-rounded oval
+     */
     singleReed: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -125,6 +143,9 @@ const drawNote = {
                                     + 'line-height:' + noteDrawData.height + 'vh;'
                                     + 'border-radius:' + noteDrawData.width / 3 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
     },
+    /*
+     * Conical brass: rounded rectangle
+     */
     conicalBrass: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -135,6 +156,9 @@ const drawNote = {
                                     + 'line-height:' + noteDrawData.height + 'vh;'
                                     + 'border-radius:' + noteDrawData.height / 2 + 'vh;"></div>');
     },
+    /*
+     * Cylindrical brass or non-orchestral instrument (including vocals): plain rectangle
+     */
     cylinderAndDefault: (i, j, noteDrawData) => {
         postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -144,6 +168,9 @@ const drawNote = {
                                     + 'height:' + noteDrawData.height + 'vh;'
                                     + 'line-height:' + noteDrawData.height + 'vh;">' + noteDrawData.lyric + '</div>');
     },
+    /*
+     * Bowed strings: four-sided diamond
+     */
     bowedStrings: (i, j, noteDrawData) => {
         postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -160,6 +187,9 @@ const drawNote = {
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
                     </div>');
     },
+    /*
+     * Plucked strings: six-sided diamond
+     */
     pluckedStrings: (i, j, noteDrawData) => {
         postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -177,6 +207,9 @@ const drawNote = {
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
                     </div>');
     },
+    /*
+     * Orchestral keyboard: up-pointing triangle
+     */
     orchKeyboard: (i, j, noteDrawData) => {
         postMessage('<div class="note sp' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -190,6 +223,9 @@ const drawNote = {
                                                 + 'border-right-width:' + noteDrawData.width / 2 + 'px;"></div>\
                     </div>');
     },
+    /*
+     * Percussion: thin rectangle with a glow (rectangle is white if unpitched)
+     */
     percussion: (i, j, noteDrawData) => {
         postMessage('<div class="note perc part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
@@ -198,6 +234,9 @@ const drawNote = {
                                     + 'height:' + noteDrawData.height + 'vh;'
                                     + 'line-height:' + noteDrawData.height + 'vh;"></div>');
     },
+    /*
+     * Accompaniment for songs: small grey diamond
+     */
     accompaniment: (i, j, noteDrawData) => {
         postMessage('<div class="note sp12' + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\

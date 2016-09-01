@@ -1,56 +1,90 @@
 /**
  * Lyricize.js: Draws a piano roll for the purpose of adding lyrics
  */
+let newdata, reset, $curr;
 $(() => {
     getRoll((piece, data) => {
         $('.but').show();
         $('body').scrollLeft(0);
-        // core of motify: allow user to select motifs and print resulting JSON to console
-        let newdata = data;
-        let reset = data;
-        let $curr;
+        newdata = data;
+        reset = data;
+        handlers.attachClickListeners();
+        handlers.attachKeyboardListeners();
+    });
+});
+
+/*
+ * Keycodes for keyboard listeners
+ */
+const keys = {
+    TAB: 9,
+    RETURN: 13,
+    ESCAPE: 27,
+    SPACE: 32
+};
+
+/*
+ * Event handlers for the Lyricize functionality
+ */
+const handlers = {
+    /*
+     * Click handlers:
+     *  - Clicking on a note selects the note for text entry
+     *  - Clicking on the "Print to Console" button lyricizes the data and prints it to console
+     */
+    attachClickListeners: () => {
         $('.note').click((e) => {
             if ($curr) $curr.toggleClass('selected');
             $(e.target).toggleClass('selected');
             $curr = $(e.target);
             $('#entry').focus();
         });
+        $('#ptc').click(() => {
+            let index;
+            $('.note').each((i, note) => {
+                index = $(note).attr('id').split('-');
+                newdata.allnotes.tracks[parseInt(index[0])].notes[parseInt(index[1])].lyric = $(note).text();
+            });
+            console.log(JSON.stringify(newdata));
+            newdata = reset;
+        });
+    },
+    /*
+     * Keyboard handlers:
+     *  - TAB: focus on entry box if not already, else submit text to current note then move to next
+     *  - SPACE: submit text to current note then move to next
+     *  - RETURN: submit text to current note then move to previous
+     *  - ESCAPE: clear current note of text
+     */
+    attachKeyboardListeners: () => {
         $(document).keydown((e) => {
-            if (e.which == 9) {
+            if (e.which == keys.TAB) {
                 e.preventDefault();
-                $('#entry').focus();
+                if ($curr) $('#entry').focus();
             } else return;
         });
         $('#entry').keydown((e) => {
-            if (e.which == 32 || e.which == 9) {
-                // space or tab: to next note
+            if (e.which == keys.SPACE || e.which == keys.TAB) {
                 e.preventDefault();
-                if ($curr.text() == '' || $('#entry').val() != '')
-                    $curr.text($('#entry').val());
-                $('#entry').val('');
+                handlers.submitText();
                 $curr.next().click();
-            } else if (e.which == 13) {
-                // return: to previous note
+            } else if (e.which == keys.RETURN) {
                 e.preventDefault();
-                if ($curr.text() == '' || $('#entry').val() != '')
-                    $curr.text($('#entry').val());
-                $('#entry').val('');
+                handlers.submitText();
                 $curr.prev().click();
-            } else if (e.which == 27) {
-                // esc: clear note
+            } else if (e.which == keys.ESCAPE) {
                 e.preventDefault();
                 $curr.text('');
                 $('#entry').val('');
             } else return;
         });
-        $('#ptc').click(() => {
-            let index;
-            $('.note').each((i, note) => {
-                index = $(note).attr('id').split('-');
-                newdata['allnotes']['tracks'][parseInt(index[0])]['notes'][parseInt(index[1])]['lyric'] = $(note).text();
-            });
-            console.log(JSON.stringify(newdata));
-            newdata = reset;
-        });
-    });
-});
+    },
+    /*
+     * Submits the entry box text to the currently selected note
+     */
+    submitText: () => {
+        if ($curr.text() == '' || $('#entry').val() != '')
+            $curr.text($('#entry').val());
+        $('#entry').val('');
+    }
+};
