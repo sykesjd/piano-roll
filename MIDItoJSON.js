@@ -19,7 +19,6 @@ if (process.argv.length < 3 || require('path').extname(process.argv[2]) !== '.mi
 	process.exit(-1);
 }
 
-
 /*
  * Get MIDI file then convert to JSON file using user-inputed metadata
  */
@@ -80,7 +79,7 @@ const tools = {
 				teobj.tracks[midiEvent.track].instrumentType = tools.instrumentType(midiEvent.param1);
 			} else if (midiEvent.subtype === MidiEvents.EVENT_MIDI_NOTE_OFF || midiEvent.subtype === MidiEvents.EVENT_MIDI_NOTE_ON) {
 				teobj.tracks[midiEvent.track].noteEvents.push({
-					eventType: midiEvent.subtype === MidiEvents.EVENT_MIDI_NOTE_OFF ? 0 : 1,
+					eventType: midiEvent.subtype,
 					note: midiEvent.param1,
 					time: midiEvent.playTime / STOMUS * STOPX
 				});
@@ -103,7 +102,7 @@ const tools = {
 			});
 			let startTemp = {};
 			track.noteEvents.forEach((noteEvent) => {
-				if (noteEvent.eventType === 1) {
+				if (noteEvent.eventType === MidiEvents.EVENT_MIDI_NOTE_ON) {
 					startTemp[noteEvent.note] = {
 						time: noteEvent.time
 					};
