@@ -28,13 +28,13 @@ The script requires the `midifile` and `jsonfile` packages to be installed via n
 
 Motify is an optional stage in finalizing the JSON file for the roll page in which the user selects the notes in the piece which are parts of motifs or subjects. A roll is printed on the screen and notes are selected/deselected with mouse clicks and arrow keys, with an indication as to which motifs the note belongs via the select box.
 
-Upon finishing selecting all the appropriate notes, the user can then print the new JSON to the console, which the user can copy and paste over the old contents of the JSON file. The new JSON will be the same as the old JSON except each note object will also contain a list of motifs of which it is a part.
+Upon finishing selecting all the appropriate notes, the user can then open the new JSON in a new tab, which the user can save to replace the existing JSON file. The new JSON will be the same as the old JSON except each note object will also contain a list of motifs of which it is a part.
 
 ## Lyricize
 
 Lyricize is another optional stage in finalizing the JSON file for the roll page in which the user adds lyrics to the notes in a choral work. A roll is printed on the screen, a note is selected with a mouse click, and successive notes are selected/deselected with space/tab (forward) or return (backward). The user enters lyrics into an input field at the bottom, which are then added to selected notes with the keys pressed above (press esc to clear the lyrics in a note).
 
-Upon finishing entering all lyrics, the user can then print the new JSON to the console, which the user cna copy and paste over the old contents of the JSON file. The new JSON will be the same as the old JSON except each note object will also contain a lyric field.
+Upon finishing entering all lyrics, the user can then open the new JSON in a new tab, which the user can save to replace the existing JSON file. The new JSON will be the same as the old JSON except each note object will also contain a lyric field.
 
 ## Roll Page
 
