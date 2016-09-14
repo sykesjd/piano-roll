@@ -30,7 +30,7 @@ const handlers = {
     /*
      * Click handlers:
      *  - Clicking on a note selects the note for text entry
-     *  - Clicking on the "Print to Console" button lyricizes the data and prints it to console
+     *  - Clicking on the "Get JSON" button lyricizes the data and opens the JSON in a new tab
      */
     attachClickListeners: () => {
         $('.note').click((e) => {
@@ -39,13 +39,14 @@ const handlers = {
             $curr = $(e.target);
             $('#entry').focus();
         });
-        $('#ptc').click(() => {
+        $('#getJSON').click(() => {
             let index;
             $('.note').each((i, note) => {
                 index = $(note).attr('id').split('-');
                 newdata.allnotes.tracks[parseInt(index[0])].notes[parseInt(index[1])].lyric = $(note).text();
             });
-            console.log(JSON.stringify(newdata));
+            window.open('data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(newdata)));
+            window.focus();
             newdata = reset;
         });
     },

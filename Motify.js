@@ -31,7 +31,7 @@ const handlers = {
     /*
      * Click handlers:
      *  - Clicking on a note toggles the currently seleted motif for the note then focuses on the note
-     *  - Clicking on the "Print to Console" button prints the motified data to console
+     *  - Clicking on the "get JSON" button opens the modified JSON in a new tab
      */
     attachClickListeners: () => {
         $('.note').click((e) => {
@@ -39,7 +39,7 @@ const handlers = {
             target.toggleClass('motif' + $('#motifbox').val());
             $curr = target;
         });
-        $('#ptc').click(() => {
+        $('#getJSON').click(() => {
             let index;
             for (let k = 0; k < 12; k++) {
                 $('.motif' + k).each((i, note) => {
@@ -47,7 +47,8 @@ const handlers = {
                     newdata.allnotes.tracks[parseInt(index[0])].notes[parseInt(index[1])].motifs.push(k);
                 });
             }
-            console.log(JSON.stringify(newdata));
+            window.open('data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(newdata)));
+            window.focus();
             newdata = reset;
         });
     },
