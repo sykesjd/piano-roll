@@ -71,8 +71,8 @@ const drawTools = {
      * Get draw data for individual notes
      */
     noteDrawData: (note, track, drawData) => {
-        // if style is solo or orch, part number corresponds to pitch
-        let partNum = (drawData.style > 1) ? (note.pitch % 12) : (drawData.style == 9 ? 12 : track.number);
+        // if style is not voice, part number corresponds to pitch
+        let partNum = (drawData.style != 0) ? (note.pitch % 12) : (drawData.style == 9 ? 12 : track.number);
         // if style is song, note type is accomp if not melody or counter-melody
         let type = (drawData.style == 1 && track.number >= 2) ? 10 : ((track.type || track.type == 0) ? track.type : 4);
         // width decremented to space consecutive notes
@@ -238,7 +238,7 @@ const drawNote = {
      * Accompaniment for songs: small grey diamond
      */
     accompaniment: (i, j, noteDrawData) => {
-        postMessage('<div class="note sp12' + noteDrawData.motifs + '"\
+        postMessage('<div class="note sp' + noteDrawData.partNum + ' sp12' + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'

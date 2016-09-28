@@ -45,10 +45,8 @@ body{background:#000;color:#999;font-family:Palatino;}
 .sp10 .spd{border-top-color:#FF00FF;}
 .sp11 .spu{border-bottom-color:#00FF7F;}
 .sp11 .spd{border-top-color:#00FF7F;}
-.sp12{margin-left:-5px;}
-.sp12 div{border-width:0px 5px;}
-.sp12 .spu{border-bottom-color:#666666;}
-.sp12 .spd{border-top-color:#666666;}
+.sp12{margin-left:-6px;}
+.sp12 div{border-width:0px 6px;}
 .motif0{filter:drop-shadow(0px 0px 5px #FF0000);-webkit-filter:drop-shadow(0px 0px 5px #FF0000);}
 .motif1{filter:drop-shadow(0px 0px 5px #007FFF);-webkit-filter:drop-shadow(0px 0px 5px #007FFF);}
 .motif2{filter:drop-shadow(0px 0px 5px #FFFF00);-webkit-filter:drop-shadow(0px 0px 5px #FFFF00);}
