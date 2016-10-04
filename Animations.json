@@ -4,29 +4,25 @@
             "name": "BWV 552/2 (Triple Fugue on St. Anne)",
             "composer": "J.S. Bach",
             "period": "Late Baroque",
-            "urlParam": "StAnne",
-            "type": "Voice"
+            "urlParam": "StAnne"
         },
         {
             "name": "Pathétique Sonata, Movement 2",
             "composer": "Ludwig van Beethoven",
             "period": "Late Classical",
-            "urlParam": "Pathetique2",
-            "type": "Solo"
+            "urlParam": "Pathetique2"
         },
         {
             "name": "Nocturne in D-flat Major",
             "composer": "Frédéric Chopin",
             "period": "Early Romantic",
-            "urlParam": "Nocturne",
-            "type": "Song"
+            "urlParam": "Nocturne"
         },
         {
             "name": "Prelude to Tristan Und Isolde",
             "composer": "Richard Wagner",
             "period": "Late Romantic",
-            "urlParam": "TristanUndIsolde",
-            "type": "Orch"
+            "urlParam": "TristanUndIsolde"
         }
     ]
 }
