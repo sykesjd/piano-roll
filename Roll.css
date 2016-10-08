@@ -61,3 +61,6 @@ body{background:#000;color:#999;font-family:Palatino;}
 .motif11{filter:drop-shadow(0px 0px 5px #00FF7F);-webkit-filter:drop-shadow(0px 0px 5px #00FF7F);}
 .motif12{filter:drop-shadow(0px 0px 5px #FFFFFF);-webkit-filter:drop-shadow(0px 0px 5px #FFFFFF);}
 .selected{box-shadow:0px 0px 25px #FFF;}
+.flute{border-radius: 50% / 50%;}
+.dReed{border-radius: 25% / 50%;}
+.sReed{border-radius: 33% / 50%;}

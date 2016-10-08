@@ -108,40 +108,37 @@ const drawNote = {
      * Flutes: fully rounded oval
      */
     flute: (i, j, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
+        postMessage('<div class="note flute part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
                                     + 'height:' + noteDrawData.height + 'vh;'
-                                    + 'line-height:' + noteDrawData.height + 'vh;'
-                                    + 'border-radius:' + noteDrawData.width / 2 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
+                                    + 'line-height:' + noteDrawData.height + 'vh;"></div>');
     },
     /*
      * Double reeds: flattened oval
      */
     doubleReed: (i, j, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
+        postMessage('<div class="note dReed part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
                                     + 'height:' + noteDrawData.height + 'vh;'
-                                    + 'line-height:' + noteDrawData.height + 'vh;'
-                                    + 'border-radius:' + noteDrawData.width / 4 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
+                                    + 'line-height:' + noteDrawData.height + 'vh;"></div>');
     },
     /*
      * Single reeds: half-rounded oval
      */
     singleReed: (i, j, noteDrawData) => {
-        postMessage('<div class="note part' + noteDrawData.partNum + noteDrawData.motifs + '"\
+        postMessage('<div class="note sReed part' + noteDrawData.partNum + noteDrawData.motifs + '"\
                             id="' + i + '-' + j + '"\
                             style="left:' + noteDrawData.x + 'px;'
                                     + 'top:' + noteDrawData.y + 'vh;'
                                     + 'width:' + noteDrawData.width + 'px;'
                                     + 'height:' + noteDrawData.height + 'vh;'
-                                    + 'line-height:' + noteDrawData.height + 'vh;'
-                                    + 'border-radius:' + noteDrawData.width / 3 + 'px / ' + noteDrawData.height / 2 + 'vh;"></div>');
+                                    + 'line-height:' + noteDrawData.height + 'vh;"></div>');
     },
     /*
      * Conical brass: rounded rectangle
