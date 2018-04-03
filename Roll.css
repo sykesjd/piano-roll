@@ -1,4 +1,4 @@
-body{background:#000;color:#999;font-family:Palatino;}
+body{background:#000;color:#999;font-family:Palatino;overflow:hidden;}
 #roll{position:relative;}
 #buttongroup{position:fixed;bottom:10px;left:10px;z-index:10;}
 #now{display:none;background-color:white;position:fixed;top:0px;bottom:0px;left:200px;width:1px;z-index:5;}
